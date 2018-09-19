@@ -1,4 +1,4 @@
-from userinterface import user_interface
+from userinterface import userinterface
 
 class game_manager:
     phase = 1
@@ -6,16 +6,10 @@ class game_manager:
     player_one = 9
     player_two = 9
 
-    def __init__(self, phase):
-        self.phase = phase
-
-    def change_phase(self):
-        print self.phase
-        self.phase = 2
-        print self.phase
+    def change_phase(self, new_phase):
+        self.phase = new_phase
     
     def init_game(self):
-                
         print "So you want to play huh?"
         print "Press 1 or 2 to pick game mode"
         choice = input("Play versus player (1) or play versus computer(2):")
@@ -24,15 +18,14 @@ class game_manager:
         if(choice == 1):
             player1 = raw_input("Enter name for player 1:")
             player2 = raw_input("Enter name for player 2:")
-            self.init_game()
-            self.init_move_options(player1,player2)
             #"load board"
-            ui.print_board()
             print "Game starting up"
-    
-    def init_move_options(self):
+            ui = userinterface()
+            ui.print_board()
+
+    def init_move_options(self, player1, player2):
         move = move_options()
         move.give_options()
 
-obj = game_manager(1)
+obj = game_manager()
 obj.init_game()
