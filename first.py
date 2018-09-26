@@ -2,14 +2,15 @@ from userinterface import userinterface
 
 class game_manager:
     phase = 1
-    player_one = {"name": "", "color": "black", "stones": 1}
-    player_two = {"name": "", "color": "white", "stones": 1}
+    player_one = {"name": "", "color": "black", "stones": 0}
+    player_two = {"name": "", "color": "white", "stones": 0}
     turn = 1
     ui = userinterface()
 
     def init_game(self):
         print("So you want to play huh?")
         print("Press 1 or 2 to pick game mode")
+        #we should catch exceptions in reasonable way
         choice = input("Play versus player (1) or play versus computer(2):")
         if choice == "2":
             print("Game mode not supported in this version")
@@ -49,7 +50,20 @@ class game_manager:
             self.place()
     
     #def move(self): 
-        
+        #check if phase 2 or 3
+        #depending on which turn, player 1/2 picks which stone to move
+        #is move legal? 
+        #
+
+    #def mill(self):
+        #should be called after each move has taken place to check for mill?
+        #return true if mill has occured
+
+
+    #def end_game(self):
+        #determines if the game is to end
+        #player has zero stones/player cant move -> opponent wins
+        #certain amount of turns have passed -> it's a tie 
 
 obj = game_manager()
 obj.init_game()
