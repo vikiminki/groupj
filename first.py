@@ -30,14 +30,14 @@ class game_manager:
         self.ui.print_board()
         print("\n")
         print("To place a stone type the position you want to place a stone in, f.e g7: \n")
-        self.ui.print_board_move()
+        #self.ui.print_board_move()
         place = input("Make move: \n")
         if(self.ui.legal_move(place)):
             if(self.turn % 2 == 1):
-                self.ui.make_move(place, "B"+ str(self.player_one["stones"]))
+                self.ui.make_move(place, "B"+ str(self.player_one["stones"] + 1))
                 self.player_one["stones"] += 1
             else:
-                self.ui.make_move(place, "W" + str(self.player_two["stones"]))
+                self.ui.make_move(place, "W" + str(self.player_two["stones"] + 1))
                 self.player_two["stones"] += 1
             self.turn += 1
             if((self.player_one["stones"] > 9) and (self.player_two["stones"] >9)):
@@ -64,6 +64,9 @@ class game_manager:
         #determines if the game is to end
         #player has zero stones/player cant move -> opponent wins
         #certain amount of turns have passed -> it's a tie 
+
+    #def remove_stone(self):
+        #gives player option to remove a stone after a mill
 
 obj = game_manager()
 obj.init_game()

@@ -75,6 +75,7 @@ class userinterface:
         print("\n")
 
     def legal_move(self, position):
+        #should also work for moving stones
         legal_position = False
         if(self.values[position] == "0 "):
             legal_position = True
