@@ -2,15 +2,14 @@ from userinterface import userinterface
 
 class game_manager:
     phase = 1
-    player_one = {"name": "", "color": "black", "stones": 0}
-    player_two = {"name": "", "color": "white", "stones": 0}
+    player_one = {"name": "", "color": "black", "stones": 1}
+    player_two = {"name": "", "color": "white", "stones": 1}
     turn = 1
     ui = userinterface()
 
     def init_game(self):
         print("So you want to play huh?")
         print("Press 1 or 2 to pick game mode")
-        #we should catch exceptions in reasonable way
         choice = input("Play versus player (1) or play versus computer(2):")
         if choice == "2":
             print("Game mode not supported in this version")
@@ -32,41 +31,44 @@ class game_manager:
         print("To place a stone type the position you want to place a stone in, f.e g7: \n")
         #self.ui.print_board_move()
         place = input("Make move: \n")
-        if(self.ui.legal_move(place)):
-            if(self.turn % 2 == 1):
-                self.ui.make_move(place, "B"+ str(self.player_one["stones"] + 1))
-                self.player_one["stones"] += 1
-            else:
-                self.ui.make_move(place, "W" + str(self.player_two["stones"] + 1))
-                self.player_two["stones"] += 1
-            self.turn += 1
-            if((self.player_one["stones"] > 9) and (self.player_two["stones"] >9)):
-                self.phase = 2
-                print("Phase 2!")
-            else:
-                self.place()
+        while(not(place in self.ui.values)):
+            print("Syntax error, please select valid position!")
+            place = input("Make move: \n")
+            
+        while(not(self.ui.legal_move(place))):
+            print("Illegal move, the position is taken!")
+            place = input("Make new move: \n")
+        if(self.turn % 2 == 1):
+            self.ui.make_move(place, "B"+ str(self.player_one["stones"]))
+            self.player_one["stones"] += 1
         else:
-            print("The move you are trying to make is not legal! Try again")
+            self.ui.make_move(place, "W" + str(self.player_two["stones"]))
+            self.player_two["stones"] += 1
+        self.turn += 1
+        if((self.player_one["stones"] > 9) and (self.player_two["stones"] >9)):
+            self.phase = 2
+            print("Phase 2!")
+        else:
             self.place()
+     
+            
+            
     
-    #def move(self): 
-        #check if phase 2 or 3
-        #depending on which turn, player 1/2 picks which stone to move
-        #is move legal? 
-        #
-
-    #def mill(self):
-        #should be called after each move has taken place to check for mill?
-        #return true if mill has occured
-
-
-    #def end_game(self):
-        #determines if the game is to end
-        #player has zero stones/player cant move -> opponent wins
-        #certain amount of turns have passed -> it's a tie 
-
-    #def remove_stone(self):
-        #gives player option to remove a stone after a mill
+    def move(self):
+        self.ui.print_board()
+        print("\n")
+        print("To move type the chose the stone you wish to move, e.g. B4")
+        stone = input("Chose stone: \n")
+        while(not(place in self.ui.values)):
+            print("Syntax error, please select valid stone!")
+            stone = input("Chose stone: \n")
+        if(self.turn % 2 == 1):
+            while(not(self.ui.black_white() == "w")):
+                print("Select one of your stones")
+                stone = input("Chose stone \n")
+            input("Select position you wish to move stone to: \n")
+        
+        
 
 obj = game_manager()
 obj.init_game()

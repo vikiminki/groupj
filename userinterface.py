@@ -19,6 +19,30 @@ class userinterface:
 
 
 
+    def make_move(self, pos, player):
+        self.values[pos] = player
+        self.print_board()
+        print("\n")
+    
+    def legal_move(self, position):
+        #should also work for moving stone
+        legal_position = False
+        if(self.values[position] == "0"):
+            legal_position = True
+        return(legal_position)
+    
+    def black_white(self, stone):
+        if(stone in values):
+            for x in range(1,9):
+                if("W"+str(x)==stone):
+                    result = "w"
+                if else ("B"+str(x)==stone):
+                    result = "b"
+            
+            return result
+        
+
+
 
 
     def print_board(self):
@@ -69,17 +93,7 @@ class userinterface:
             print("",".","                         .","                          .")
             print ("a7.........................d7...........................g7")
     
-    def make_move(self, pos, player):
-        self.values[pos] = player
-        self.print_board()
-        print("\n")
 
-    def legal_move(self, position):
-        #should also work for moving stones
-        legal_position = False
-        if(self.values[position] == "0 "):
-            legal_position = True
-        return(legal_position)
 
            
 
