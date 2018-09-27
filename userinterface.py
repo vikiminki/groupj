@@ -8,15 +8,61 @@ class userinterface:
     occupied = []
     player1 = []
     player2 = []
-    values={"a1":"0 ", "d1":"0 ", "g1":"0 ", "e1":"0 ", "b2":"0 ", "d2":"0 ", "f2":"0 ", 
-            "c3":"0 ", "d3":"0 ", "e3":"0 ", "a4":"0 ", "b4":"0 ", "c4":"0 ", "e4":"0 ",
-            "f4":"0 ", "g4":"0 ", "c5":"0 ", "d5":"0 ",
-            "e5":"0 ", "b6":"0 ","d6":"0 ", "f6":"0 ", "a7":"0 ", "d7":"0 ", "g7":"0 "}
+    values={"a1":"0 ", "d1":"0 ", "g1":"0 ", 
+            "b2":"0 ", "d2":"0 ", "f2":"0 ", 
+            "c3":"0 ", "d3":"0 ", "e3":"0 ", 
+            "a4":"0 ", "b4":"0 ", "c4":"0 ", "e4":"0 ","f4":"0 ", "g4":"0 ", 
+            "c5":"0 ", "d5":"0 ", "e5":"0 ", 
+            "b6":"0 ","d6":"0 ", "f6":"0 ", 
+            "a7":"0 ", "d7":"0 ", "g7":"0 "}
     #values={"a1":"a1", "d1":"d1", "g1":"g1", "e1":"e1", "b2":"b2", "d2":"d2", "f2":"f2", 
     #        "c3":"c3", "d3":"d3", "e3":"e3", "a4":"a4", "b4":"b4", "c4":"c4", "e4":"e4",
     #        "f4":"f4", "g4":"g4", "c5":"c5", "d5":"d5",
     #        "e5":"e5", "b6":"b6","d6":"d6", "f6":"f6", "a7":"a7", "d7":"d7", "g7":"g7"}
+    connections= {"a1": ("a4, d1"), "d1": ("a1", "g1", "d2"), "g1":("d1", "g4"), 
+            "b2":("b4", "d2"), "d2":("b2", "f2", "d1", "d3"), "f2":("d2", "f4"), 
+            "c3":("c4", "d3"), "d3":("c3", "e3"), "e3":("d3", "e4"), 
+            "a4":("a1", "b4", "a7"), "b4":("a4", "c4", "b2", "b6"), "c4":("b4","c3","c5"), 
+            "e4":("e3", "e5"),"f4":("f2", "f6", "e4", "g4"), "g4":("g1", "g7"), 
+            "c5":("c4", "d5"), "d5":("c5", "e5", "d6"), "e5":("e4", "d5"), 
+            "b6":("b4", "d6"),"d6":("b6", "f6", "d5", "d7"), "f6":("d6", "f4"), 
+            "a7":("a4", "d7"), "d7":("a7", "d6", "g7"), "g7":("d7", "g4")}   
 
+
+    def make_move(self, pos, player):
+        self.values[pos] = player
+        self.print_board()
+        print("\n")
+
+    def move_stone(self, stone, newpos, oldpos):
+        self.values[oldpos] = "0 "
+        self.values[newpos] = stone
+        
+
+    def legal_move(self, position): #checks if position is free
+        legal_position = False
+        print(self.values[position])
+        if(self.values[position] == "0 "):
+            legal_position = True
+        return(legal_position)
+
+    def legal_move_2(self, stone, position): #checks if position is free & next to the stone
+        #check if the position is next to the stone's position
+        if(not(legal_move(position))):
+            return(False)
+        
+    def black_white(self, stone):
+        if(stone in self.values.values()):
+            for x in range(1,9):
+                if(("W"+str(x))==stone):
+                    result = "w"
+                elif(("B"+str(x))==stone):
+                    result = "b"
+        else:
+            result = "0"
+        
+        return(result)
+           
 
 
 
@@ -68,19 +114,4 @@ class userinterface:
             print("",".","                         .","                          .")
             print("",".","                         .","                          .")
             print ("a7.........................d7...........................g7")
-    
-    def make_move(self, pos, player):
-        self.values[pos] = player
-        self.print_board()
-        print("\n")
-
-    def legal_move(self, position):
-        #should also work for moving stones
-        legal_position = False
-        if(self.values[position] == "0 "):
-            legal_position = True
-        return(legal_position)
-
-           
-
 
