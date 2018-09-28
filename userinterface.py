@@ -28,6 +28,14 @@ class userinterface:
             "b6":("b4", "d6"),"d6":("b6", "f6", "d5", "d7"), "f6":("d6", "f4"), 
             "a7":("a4", "d7"), "d7":("a7", "d6", "g7"), "g7":("d7", "g4")}   
 
+    values_for_mill={'a1':0, 'd1':1, 'g1':0, 
+                     'b2':1, 'd2':0, 'f2':1, 
+                     'c3':0, 'd3':1, 'e3':0, 
+                     'a4':1, 'b4':0, 'c4':1, 'e4':1, 'f4':0, 'g4':1, 
+                     'c5':0, 'd5':1, 'e5':0, 
+                     'b6':1, 'd6':0, 'f6':1, 
+                     'a7':0, 'd7':1, 'g7':0}
+
 
     def make_move(self, pos, player):
         self.values[pos] = player
@@ -49,13 +57,14 @@ class userinterface:
             legal_position = True
         return(legal_position)
 
-    def legal_move_2(self, stone, position): #checks if position is free & next to the stone
-        #check if the position is next to the stone's position
+    def legal_move_2(self, stone, dest_position): #checks if position is free & next to the stone
         if(not(legal_move(position))):
             return(False)
-        #elif)
+       #which is the position of the stone
+       #which connections does it have
+       #is dest_position one of the connections?
         
-    def black_white(self, stone):
+    def black_white(self, stone): 
         if(stone in self.values.values()):
             for x in range(1,9):
                 if(("W"+str(x))==stone):
@@ -64,7 +73,6 @@ class userinterface:
                     result = "b"
         else:
             result = "0"
-        
         return(result)
           
 

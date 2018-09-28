@@ -67,10 +67,11 @@ class game_manager:
             if(self.turn % 2 == 1):
                 self.ui.make_move(place, "B"+ str(self.player_one["stones"] + 1))
                 self.player_one["stones"] += 1
-                self.ui.check_mill() #
+                #self.ui.check_mill() takes 2 arguments: color and position
             else:
                 self.ui.make_move(place, "W" + str(self.player_two["stones"] + 1))
                 self.player_two["stones"] += 1
+                #self.ui.check_mill() takes 2 arguments: color and position
             if((self.player_one["stones"] > 9) and (self.player_two["stones"] >9)):
                 self.phase = 2
                 print("Phase 2!")
