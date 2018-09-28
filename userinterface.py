@@ -35,14 +35,17 @@ class userinterface:
         print("\n")
 
     def move_stone(self, stone, newpos, oldpos):
-        self.values[oldpos] = "0 "
+        print("old position: " + oldpos)
+        print("new position: " + newpos)
+        print("stone: " + stone)
+        self.values[oldpos] = "0 " #doenst always seem to work
         self.values[newpos] = stone
         
 
     def legal_move(self, position): #checks if position is free
         legal_position = False
-        print(self.values[position])
-        if(self.values[position] == "0 "):
+        
+        if((position in self.values.keys()) and (self.values[position] == "0 ")):
             legal_position = True
         return(legal_position)
 
@@ -50,6 +53,7 @@ class userinterface:
         #check if the position is next to the stone's position
         if(not(legal_move(position))):
             return(False)
+        #elif)
         
     def black_white(self, stone):
         if(stone in self.values.values()):
@@ -62,8 +66,157 @@ class userinterface:
             result = "0"
         
         return(result)
-           
+          
 
+    def check_mill(self, color, position): #return 0 if no mill, return 1 if mill
+        mill_counter = 0
+
+        if(position == 'a1'):
+            if(self.values_for_mill['a1'] == self.values_for_mill['d1'] == self.values_for_mill['g1'] == color):
+                mill_counter += 1
+            if(self.values_for_mill['a1'] == self.values_for_mill['a4'] == self.values_for_mill['a7'] == color):
+                mill_counter += 1
+            return mill_counter
+        elif(position == 'a4'):
+            if(self.values_for_mill['a4'] == self.values_for_mill['b4'] == self.values_for_mill['c4'] == color):
+                mill_counter += 1
+            if(self.values_for_mill['a1'] == self.values_for_mill['a4'] == self.values_for_mill['a7'] == color):
+                mill_counter += 1
+            return mill_counter
+        elif(position == 'a7'):
+            if(self.values_for_mill['a7'] == self.values_for_mill['d7'] == self.values_for_mill['g7'] == color):
+                mill_counter += 1
+            if(self.values_for_mill['a1'] == self.values_for_mill['a4'] == self.values_for_mill['a7'] == color):
+                mill_counter += 1
+            return mill_counter
+        elif(position == 'b2'):
+            if(self.values_for_mill['b2'] == self.values_for_mill['d2'] == self.values_for_mill['f2'] == color):
+                mill_counter += 1
+            if(self.values_for_mill['b2'] == self.values_for_mill['b4'] == self.values_for_mill['b6'] == color):
+                mill_counter += 1
+            return mill_counter
+        elif(position == 'b4'):
+            if(self.values_for_mill['a4'] == self.values_for_mill['b4'] == self.values_for_mill['c4'] == color):
+                mill_counter += 1
+            if(self.values_for_mill['b2'] == self.values_for_mill['b4'] == self.values_for_mill['b6'] == color):
+                mill_counter += 1
+            return mill_counter
+        elif(position == 'b6'):
+            if(self.values_for_mill['b6'] == self.values_for_mill['d6'] == self.values_for_mill['f6'] == color):
+                mill_counter += 1
+            if(self.values_for_mill['b2'] == self.values_for_mill['b4'] == self.values_for_mill['b6'] == color):
+                mill_counter += 1
+            return mill_counter
+        elif(position == 'c3'):
+            if(self.values_for_mill['c3'] == self.values_for_mill['d3'] == self.values_for_mill['e3'] == color):
+                mill_counter += 1
+            if(self.values_for_mill['c3'] == self.values_for_mill['c4'] == self.values_for_mill['c5'] == color):
+                mill_counter += 1
+            return mill_counter
+        elif(position == 'c4'):
+            if(self.values_for_mill['a4'] == self.values_for_mill['b4'] == self.values_for_mill['c4'] == color):
+                mill_counter += 1
+            if(self.values_for_mill['c3'] == self.values_for_mill['c4'] == self.values_for_mill['c5'] == color):
+                mill_counter += 1
+            return mill_counter
+        elif(position == 'c5'):
+            if(self.values_for_mill['c5'] == self.values_for_mill['d5'] == self.values_for_mill['e5'] == color):
+                mill_counter += 1
+            if(self.values_for_mill['c3'] == self.values_for_mill['c4'] == self.values_for_mill['c5'] == color):
+                mill_counter += 1
+            return mill_counter
+        elif(position == 'd1'):
+            if(self.values_for_mill['a1'] == self.values_for_mill['d1'] == self.values_for_mill['g1'] == color):
+                mill_counter += 1
+            if(self.values_for_mill['d1'] == self.values_for_mill['d2'] == self.values_for_mill['d3'] == color):
+                mill_counter += 1
+            return mill_counter
+        elif(position == 'd2'):
+            if(self.values_for_mill['b2'] == self.values_for_mill['d2'] == self.values_for_mill['f2'] == color):
+                mill_counter += 1
+            if(self.values_for_mill['d1'] == self.values_for_mill['d2'] == self.values_for_mill['d3'] == color):
+                mill_counter += 1
+            return mill_counter
+        elif(position == 'd3'):
+            if(self.values_for_mill['c3'] == self.values_for_mill['d3'] == self.values_for_mill['e3'] == color):
+                mill_counter += 1
+            if(self.values_for_mill['d1'] == self.values_for_mill['d2'] == self.values_for_mill['d3'] == color):
+                mill_counter += 1
+            return mill_counter
+        elif(position == 'd5'):
+            if(self.values_for_mill['c5'] == self.values_for_mill['d5'] == self.values_for_mill['e5'] == color):
+                mill_counter += 1
+            if(self.values_for_mill['d5'] == self.values_for_mill['d6'] == self.values_for_mill['d7'] == color):
+                mill_counter += 1
+            return mill_counter
+        elif(position == 'd6'):
+            if(self.values_for_mill['b6'] == self.values_for_mill['d6'] == self.values_for_mill['f6'] == color):
+                mill_counter += 1
+            if(self.values_for_mill['d5'] == self.values_for_mill['d6'] == self.values_for_mill['d7'] == color):
+                mill_counter += 1
+            return mill_counter
+        elif(position == 'd7'):
+            if(self.values_for_mill['a7'] == self.values_for_mill['d7'] == self.values_for_mill['g7'] == color):
+                mill_counter += 1
+            if(self.values_for_mill['d5'] == self.values_for_mill['d6'] == self.values_for_mill['d7'] == color):
+                mill_counter += 1
+            return mill_counter
+        elif(position == 'e3'):
+            if(self.values_for_mill['c3'] == self.values_for_mill['d3'] == self.values_for_mill['e3'] == color):
+                mill_counter += 1
+            if(self.values_for_mill['e3'] == self.values_for_mill['e4'] == self.values_for_mill['e5'] == color):
+                mill_counter += 1
+            return mill_counter
+        elif(position == 'e4'):
+            if(self.values_for_mill['e4'] == self.values_for_mill['f4'] == self.values_for_mill['g4'] == color):
+                mill_counter += 1
+            if(self.values_for_mill['e3'] == self.values_for_mill['e4'] == self.values_for_mill['e5'] == color):
+                mill_counter += 1
+            return mill_counter
+        elif(position == 'e5'):
+            if(self.values_for_mill['c5'] == self.values_for_mill['d5'] == self.values_for_mill['e5'] == color):
+                mill_counter += 1
+            if(self.values_for_mill['e3'] == self.values_for_mill['e4'] == self.values_for_mill['e5'] == color):
+                mill_counter += 1
+            return mill_counter
+        elif(position == 'f2'):
+            if(self.values_for_mill['b2'] == self.values_for_mill['d2'] == self.values_for_mill['f2'] == color):
+                mill_counter += 1
+            if(self.values_for_mill['f2'] == self.values_for_mill['f4'] == self.values_for_mill['f6'] == color):
+                mill_counter += 1
+            return mill_counter
+        elif(position == 'f4'):
+            if(self.values_for_mill['e4'] == self.values_for_mill['f4'] == self.values_for_mill['g4'] == color):
+                mill_counter += 1
+            if(self.values_for_mill['f2'] == self.values_for_mill['f4'] == self.values_for_mill['f6'] == color):
+                mill_counter += 1
+            return mill_counter
+        elif(position == 'f6'):
+            if(self.values_for_mill['b6'] == self.values_for_mill['d6'] == self.values_for_mill['f6'] == color):
+                mill_counter += 1
+            if(self.values_for_mill['f2'] == self.values_for_mill['f4'] == self.values_for_mill['f6'] == color):
+                mill_counter += 1
+            return mill_counter
+        elif(position == 'g1'):
+            if(self.values_for_mill['a1'] == self.values_for_mill['d1'] == self.values_for_mill['g1'] == color):
+                mill_counter += 1
+            if(self.values_for_mill['g1'] == self.values_for_mill['g4'] == self.values_for_mill['g7'] == color):
+                mill_counter += 1
+            return mill_counter
+        elif(position == 'g4'):
+            if(self.values_for_mill['e4'] == self.values_for_mill['f4'] == self.values_for_mill['g4'] == color):
+                mill_counter += 1
+            if(self.values_for_mill['g1'] == self.values_for_mill['g4'] == self.values_for_mill['g7'] == color):
+                mill_counter += 1
+            return mill_counter
+        elif(position == 'g7'):
+            if(self.values_for_mill['a7'] == self.values_for_mill['d7'] == self.values_for_mill['g7'] == color):
+                mill_counter += 1
+            if(self.values_for_mill['g1'] == self.values_for_mill['g4'] == self.values_for_mill['g7'] == color):
+                mill_counter += 1
+            return mill_counter
+        else:
+            return 0
 
 
 
