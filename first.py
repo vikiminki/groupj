@@ -91,7 +91,7 @@ class game_manager:
         if(self.turn % 2 == 1):
             print("Its " + self.player_one["name"] +"'s turn! Please place a black stone.\n")
         else:
-            print("Its " + self.player_one["name"] +"'s turn! Please place a white stone. \n")
+            print("Its " + self.player_two["name"] +"'s turn! Please place a white stone. \n")
         
         print("To place a stone type the position you want to place a stone in, f.e g7. \n")
         place = input("Place stone: \n")
