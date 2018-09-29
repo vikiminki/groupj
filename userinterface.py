@@ -15,10 +15,6 @@ class userinterface:
             "c5":"0 ", "d5":"0 ", "e5":"0 ", 
             "b6":"0 ","d6":"0 ", "f6":"0 ", 
             "a7":"0 ", "d7":"0 ", "g7":"0 "}
-    #values={"a1":"a1", "d1":"d1", "g1":"g1", "e1":"e1", "b2":"b2", "d2":"d2", "f2":"f2", 
-    #        "c3":"c3", "d3":"d3", "e3":"e3", "a4":"a4", "b4":"b4", "c4":"c4", "e4":"e4",
-    #        "f4":"f4", "g4":"g4", "c5":"c5", "d5":"d5",
-    #        "e5":"e5", "b6":"b6","d6":"d6", "f6":"f6", "a7":"a7", "d7":"d7", "g7":"g7"}
     connections= {"a1": ("a4", "d1"), "d1": ("a1", "g1", "d2"), "g1":("d1", "g4"), 
             "b2":("b4", "d2"), "d2":("b2", "f2", "d1", "d3"), "f2":("d2", "f4"), 
             "c3":("c4", "d3"), "d3":("c3", "e3"), "e3":("d3", "e4"), 
@@ -43,9 +39,6 @@ class userinterface:
         print("\n")
 
     def move_stone(self, stone, newpos, oldpos):
-        print("old position: " + oldpos)
-        print("new position: " + newpos)
-        print("stone: " + stone)
         self.values[oldpos] = "0 " #doenst always seem to work
         self.values[newpos] = stone
         
