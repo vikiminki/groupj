@@ -5,7 +5,7 @@ class game_manager:
     phase = 1
     player_one = {"name": "", "color": "black", "stones": 0}
     player_two = {"name": "", "color": "white", "stones": 0}
-    turn = 0
+    turn = 1
     ui = userinterface()
 
     def init_game(self):
@@ -52,20 +52,15 @@ class game_manager:
     def game_loop(self):
         while(self.turn < 18):
             self.place()
-        
+            self.turn += 1 
         while((self.player_one["stones"] > 3) or (self.player_two["stones"] > 3)):
             self.move()
+            self.turn += 1
             if(self.end_of_game):
                 print("End of game yo!")
                 break
 
     def end_of_game(self):
-        #if stones <2: return true
-        #kolla alla stenars position
-        #för varje sten: kollar connects'värden
-        #om det finns något värde som är 0 -> return true
-        #annars retrun false
-
         if((self.player_one["stones"] < 3) or (self.player_two["stones"] < 3)):
             print("A player has less than 3 stones left")
             return True
@@ -87,7 +82,6 @@ class game_manager:
     def place(self):
         self.ui.print_board()
         print("\n")
-        self.turn += 1
         if(self.turn % 2 == 1):
             print("Its " + self.player_one["name"] +"'s turn! Please place a black stone.\n")
         else:
@@ -111,7 +105,6 @@ class game_manager:
             
             
     def move(self):
-        self.turn += 1
         self.ui.print_board()
         
         result = "x"
