@@ -57,6 +57,7 @@ class userinterface:
             legal_position = True
         return(legal_position)
 
+
     def legal_move_2(self, stone, dest_position): #checks if position is free & next to the stone
         if(not(self.legal_move(dest_position))):
             return(False)
@@ -68,7 +69,6 @@ class userinterface:
         if(dest_position in connections):
             return True
         else:
-            print("false")
             return False
         
 
@@ -83,13 +83,7 @@ class userinterface:
         else:
             result = "0"
         return(result)
-    
-    def contains(self, stone):
-        if(stone in self.values.values()):
-            return True
-        else:
-            return False
-            
+          
 
     def check_mill(self, color, position): #return 0 if no mill, return 1 if mill
         mill_counter = 0
@@ -290,20 +284,5 @@ class userinterface:
             print("",".","                         .","                          .")
             print("",".","                         .","                          .")
             print ("a7.........................d7...........................g7")
-
-
-obj = userinterface()
-obj.values["a1"] = "B1"
-
-obj.print_board()
-if(obj.legal_move_2("B1", "a4")):
-    obj.move_stone("B1", "a4", "a1")
-obj.print_board()
-
-if(obj.legal_move_2("B1", "g7")):
-    obj.move_stone("B1", "g7", "a1")
-
-obj.print_board()
-
 
 

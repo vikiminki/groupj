@@ -12,7 +12,7 @@ class game_manager:
         print("So you want to play huh?")
         print("Press 1 or 2 to pick game mode")
         #we should catch exceptions in reasonable way
-        choice = input("Play versus player (1) or play versus computer(2) or run phase 2(3) or run end of phase 1 (4):")
+        choice = input("Play versus player (1) or play versus computer(2) or run phase 2(3) or run end of phase 2 (4):")
         if choice == "2":
             print("Game mode not supported in this version")
         if choice == "1":
@@ -34,14 +34,14 @@ class game_manager:
             self.move()
 
         if choice == "4":
-            self.ui.values = {"a1":"B1", "d1":"W1", "g1":"B2", "e1":"W2", "b2":"W3", "d2":"B3", 
-            "f2":"0 ", "c3":"0 ", "d3":"0 ", "e3":"0 ", "a4":"0 ", "b4":"W4", "c4":"B4", 
-            "e4":"0 ", "f4":"B8", "g4":"B6", "c5":"W6", "d5":"B7",
-            "e5":"0 ", "b6":"W8","d6":"W7", "f6":"0 ", "a7":"0 ", "d7":"W5", "g7":"B5"}
-            self.player_one["stones"] = 8
-            self.player_two["stones"] = 8
-            self.turn = 16
-            print("Turn 16, 2 turns away from phase 2 initiated")
+            self.ui.values = {"a1":"B1", "d1":"W1", "g1":"0 ", "e1":"W2", "b2":"0 ", "d2":"0 ", 
+            "f2":"B3", "c3":"0 ", "d3":"0 ", "e3":"0 ", "a4":"0 ", "b4":"W4", "c4":"B4", 
+            "e4":"B9", "f4":"0 ", "g4":"B6", "c5":"0 ", "d5":"B7",
+            "e5":"0 ", "b6":"W8","d6":"W7", "f6":"0 ", "a7":"W9", "d7":"W5", "g7":"0 "}
+            self.player_one["stones"] = 9
+            self.player_two["stones"] = 9
+            self.turn = 34
+            print("Turn 34, some turns into phase 2")
             self.place()
             self.move()
         
