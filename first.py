@@ -107,9 +107,10 @@ class game_manager:
                 self.white_stones += 1 #shang add
 
             self.mill(place)
-            self.turn += 1 #shang change           
-            
-            
+        else:
+            print("The move you are trying to make is not legal! Try again")
+            self.place()
+                        
     def move(self):
         self.ui.print_board()
         
