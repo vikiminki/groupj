@@ -62,7 +62,7 @@ class game_manager:
         #för varje sten: kollar connects'värden
         #om det finns något värde som är 0 ->fortsätt
         #annars end game
-        if((self.player_one["stones"] < 3)) or (self.player_two["stones"] < 3))
+        if((self.player_one["stones"] < 3) or (self.player_two["stones"] < 3)):
             print("A player has less than 3 stones left")
             return True
             
