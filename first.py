@@ -1,4 +1,5 @@
 from userinterface import userinterface
+from _operator import pos
 
 class game_manager:
     phase = 1
@@ -83,8 +84,105 @@ class game_manager:
         else:
             print("The move you are trying to make is not legal! Try again")
             self.place()
+            
+            
+            
+    def move(self):
+        #kolla med victoria om det här verkligen ska va i början
+        self.turn += 1
+        self.ui.print_board()
+        
+        result = "x"
+        print("\n") 
+        print("To move type the the stone you wish to move, e.g. B4")
+        
+        
+        if(self.turn % 2 == 1):
+            print("Its " + self.player_one["name"] +"'s turn! Please pick a black stone.\n")
+            
+            while(result == "x"):
+                result = self.move_algorithm()
+                print(result)
+            # now put stone using the place and remove the old one
+            mydict = self.ui.values
+            oldpos = list(mydict.keys())[list(mydict.values()).index(result[0])]
+            
+            self.ui.move_stone(result[0], result[1], oldpos)
+            
+        else:
+            print("Its " + self.player_one["name"] +"'s turn! Please pick a white stone. \n")
+            
+            while(result == "x"):
+                 result = self.move_algorithm()
+            
+            mydict = self.ui.values
+            oldpos = list(mydict.keys())[list(mydict.values()).index(result[0])]
+            
+            self.ui.move_stone(result[0], result[1], oldpos)
+            
+            
+            '''
+            while(not(self.ui.black_white == "b"))
+                stone = input("Please select a stone that is black")
+                color = self.ui.black_white
+            #Checks if contains. contains gives boolean
+            while(not(ui.contains(ui,stone))):
+                stone = input("Please select a stone that exists on the board")
+            
+            pos = input("Please select a position")
+            
+            while(not(ui.legal_move(ui,pos))):
+                pos = input("Please, a valid position or type x to change the selected stone")
+                if(pos == "x"):
+                    break
+                    #like this for now, add the shit tomorrow
+                    #tip for tomorrow try picking everything from comment and use recursion
+            
+            #now move the stone victoria knows how to do this
+               
+            
+        if(self.turn % 2 == 1):
+        else:
+            print("Its " + self.player_one["name"] +"'s turn! Please pick a white stone. \n")
+        
+        while(not(self.ui.black_white == "w"))
+        stone = input("Please select a stone")
+        color = self.ui.black_white
+        #Checks if contains. contains gives boolean
+        while(not(ui.contains(ui,stone))):
+            stone = input("Please select a stone")
+            
+        if(self.turn % 2 == 1):
+          '''  
+            
+            
+            
+            
+    def move_algorithm(self):
+        stone = input("Please select a stone that is black")
+        color = self.ui.black_white(stone)
+        
+        while(not(self.ui.black_white(stone) == color)):
+                stone = input("Please select a stone that is black")
+                color = self.ui.black_white(stone)
+                
+        #Checks if contains. contains gives boolean
+        while(not(self.ui.contains(stone))):
+            stone = input("Please select a stone that exists on the board")
+            
+        pos = input("Please select a position")
+            
+        while(not(self.ui.legal_move(pos))):
+            pos = input("Please, a valid position or type x to change the selected stone")
+            if(pos == "x"):
+                return"x"        
+        
+        result = [stone,pos]
+        
+        return(result)  
+    
 
-
+'''
     def move(self):
         self.turn += 1
         self.ui.print_board()
@@ -123,7 +221,7 @@ class game_manager:
 
 
     def move_is_legal(self, stone, pos, color): #returns a position and stone to move
-        stone_color = self.ui.black_white(stone) 
+        #stone_color = self.ui.black_white(stone) 
         while(not(stone_color == color)):
             print("Select one of your stones, not your opponents! \n")
             stone = self.stone_exists()
@@ -153,7 +251,7 @@ class game_manager:
         while(not(stone in self.ui.values.values())):
             stone = input("Not a valid stone to pick! Try again")
         return stone
-
+'''
 
 
             

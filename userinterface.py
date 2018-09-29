@@ -83,7 +83,13 @@ class userinterface:
         else:
             result = "0"
         return(result)
-          
+    
+    def contains(self, stone):
+        if(stone in self.values.values()):
+            return True
+        else:
+            return False
+            
 
     def check_mill(self, color, position): #return 0 if no mill, return 1 if mill
         mill_counter = 0
