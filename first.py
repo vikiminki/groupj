@@ -44,7 +44,7 @@ class game_manager:
             self.player_two["stones"] = 9
             self.turn = 34
             print("Turn 34, some turns into phase 2")
-            
+       
         else:
             print("Wrong input, try again")
             self.init_game()
@@ -53,25 +53,36 @@ class game_manager:
         while(self.turn < 18):
             self.place()
         
-        while((player_one["stones"] > 3) or (player_two["stones"] > 3)):
+        while((self.player_one["stones"] > 3) or (self.player_two["stones"] > 3)):
             self.move()
+            if(self.end_of_game):
+                print("End of game yo!")
+                break
 
     def end_of_game(self):
-        #if stones <2: end game
+        #if stones <2: return true
         #kolla alla stenars position
         #för varje sten: kollar connects'värden
-        #om det finns något värde som är 0 ->fortsätt
-        #annars end game
+        #om det finns något värde som är 0 -> return true
+        #annars retrun false
+
         if((self.player_one["stones"] < 3) or (self.player_two["stones"] < 3)):
             print("A player has less than 3 stones left")
             return True
             
-        #keylist = []
-        #for x in range(1,9):
-        #    for (key, value) in self.ui.values.items():
-        #        if value == ("W" + str(x)):
-        #            keylist.append(key)
-                
+        keylist = []
+        for x in range(1,9):
+            for (key, value) in self.ui.values.items():
+                if value == ("W" + str(x)):
+                    keylist.append(key) #put every position where player has a stone in list
+        
+        for key in keylist: #for each position, check the positions connections
+            for connect in self.ui.connections[key]: #for each connection
+                if("0 " in self.ui.values[connect]): #check if value == "0 "
+                    return True
+        return False
+
+
 
     def place(self):
         self.ui.print_board()
