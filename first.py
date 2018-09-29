@@ -16,7 +16,7 @@ class game_manager:
         print("So you want to play huh?")
         print("Press 1 or 2 to pick game mode")
         #we should catch exceptions in reasonable way
-        choice = input("Play versus player (1) or play versus computer(2) or run phase 2(3) or run end of phase 1 (4):")
+        choice = input("Play versus player (1) or play versus computer(2) or run end of phase 1(4) or run end of phase 2 (3):")
         if choice == "2":
             print("Game mode not supported in this version")
         if choice == "1":
@@ -27,81 +27,90 @@ class game_manager:
             print("Game starting up")
             print(player1 ,"is black, ", player2 , " is white.")
             print("\n")
-            if(self.phase == 1):
-                self.place()
-            self.move()
-        if choice == "3":
-            self.ui.values = {"a1":"B1", "d1":"W1", "g1":"B2", "e1":"W2", "b2":"W3", "d2":"B3", 
-            "f2":"0 ", "c3":"0 ", "d3":"0 ", "e3":"0 ", "a4":"0 ", "b4":"W4", "c4":"B4", 
-            "e4":"W9", "f4":"B8", "g4":"B6", "c5":"W6", "d5":"B7",
-            "e5":"B9", "b6":"W8","d6":"W7", "f6":"0 ", "a7":"0 ", "d7":"W5", "g7":"B5"}
-            self.move()
-
+            self.game_loop()
+        
         if choice == "4":
             self.ui.values = {"a1":"B1", "d1":"W1", "g1":"B2", "e1":"W2", "b2":"W3", "d2":"B3", 
             "f2":"0 ", "c3":"0 ", "d3":"0 ", "e3":"0 ", "a4":"0 ", "b4":"W4", "c4":"B4", 
             "e4":"0 ", "f4":"B8", "g4":"B6", "c5":"W6", "d5":"B7",
             "e5":"0 ", "b6":"W8","d6":"W7", "f6":"0 ", "a7":"0 ", "d7":"W5", "g7":"B5"}
+            self.turn = 16
             self.player_one["stones"] = 8
             self.player_two["stones"] = 8
-            self.turn = 16
-            print("Turn 16, 2 turns away from phase 2 initiated")
-            self.place()
-            self.move()
-        
+            self.game_loop()
+
+        if choice == "3":
+            self.ui.values = {"a1":"B1", "d1":"W1", "g1":"0 ", "e1":"W2", "b2":"0 ", "d2":"0 ", 
+            "f2":"B3", "c3":"0 ", "d3":"0 ", "e3":"0 ", "a4":"0 ", "b4":"W4", "c4":"B4", 
+            "e4":"B9", "f4":"0 ", "g4":"B6", "c5":"0 ", "d5":"B7",
+            "e5":"0 ", "b6":"W8","d6":"W7", "f6":"0 ", "a7":"W9", "d7":"W5", "g7":"0 "}
+            self.player_one["stones"] = 9
+            self.player_two["stones"] = 9
+            self.turn = 34
+            print("Turn 34, some turns into phase 2")
+       
         else:
             print("Wrong input, try again")
             self.init_game()
+    
+    def game_loop(self):
+        while(self.turn < 18):
+            self.place()
+            self.turn += 1 
+        while((self.player_one["stones"] > 3) or (self.player_two["stones"] > 3)):
+            self.move()
+            self.turn += 1
+            if(self.end_of_game):
+                print("End of game yo!")
+                break
+
+    def end_of_game(self):
+        if((self.player_one["stones"] < 3) or (self.player_two["stones"] < 3)):
+            print("A player has less than 3 stones left")
+            return True
+            
+        keylist = []
+        for x in range(1,9):
+            for (key, value) in self.ui.values.items():
+                if value == ("W" + str(x)):
+                    keylist.append(key) #put every position where player has a stone in list
+        
+        for key in keylist: #for each position, check the positions connections
+            for connect in self.ui.connections[key]: #for each connection
+                if("0 " in self.ui.values[connect]): #check if value == "0 "
+                    return True
+        return False
 
 
 
     def place(self):
-        #venne
         self.ui.print_board()
         print("\n")
-        #en annan kommentar
-        #self.turn += 1
         if(self.turn % 2 == 1):
             print("Its " + self.player_one["name"] +"'s turn! Please place a black stone.\n")
         else:
             print("Its " + self.player_two["name"] +"'s turn! Please place a white stone. \n")
         
         print("To place a stone type the position you want to place a stone in, f.e g7. \n")
-        #self.ui.print_board_move()
-        place = input("Make move: \n")
+        place = input("Place stone: \n")
         if(self.ui.legal_move(place)):
             if(self.turn % 2 == 1):
                 self.ui.make_move(place, "B"+ str(self.player_one["stones"] + 1))
                 self.ui.mill_state(place, "B") #shang add
                 self.player_one["stones"] += 1
-                self.black_stones += 1 #shang add
-                #self.ui.check_mill() #takes 2 arguments: color and position
+                self.black_stones += 1 #shang add                
             
             else:
                 self.ui.make_move(place, "W" + str(self.player_two["stones"] + 1))
                 self.ui.mill_state(place, "W") #shang add
                 self.player_two["stones"] += 1
                 self.white_stones += 1 #shang add
-                #self.ui.check_mill() #takes 2 arguments: color and position
 
             self.mill(place)
-            self.turn += 1 #shang change
-            
-            if((self.player_one["stones"] > 8) and (self.player_two["stones"] > 8)):
-                self.phase = 2
-                return()
-                #self.move()
-            else:
-                self.place()
-        else:
-            print("The move you are trying to make is not legal! Try again")
-            self.place()
-            
+            self.turn += 1 #shang change           
             
             
     def move(self):
-        #kolla med victoria om det här verkligen ska va i början
-        self.turn += 1
         self.ui.print_board()
         
         result = "x"
@@ -253,7 +262,7 @@ class game_manager:
             
         pos = input("Please select a position")
             
-        while(not(self.ui.legal_move(pos))):
+        while(not(self.ui.legal_move_2(stone,pos))):
             pos = input("Please, a valid position or type x to change the selected stone")
             if(pos == "x"):
                 return"x"        
