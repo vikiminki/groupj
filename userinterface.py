@@ -31,7 +31,9 @@ class userinterface:
                      'c5':0, 'd5':1, 'e5':0, 
                      'b6':1, 'd6':0, 'f6':1, 
                      'a7':0, 'd7':1, 'g7':0}
-
+    
+          
+    
 
     def make_move(self, pos, player):
         self.values[pos] = player
