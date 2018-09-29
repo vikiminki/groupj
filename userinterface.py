@@ -291,7 +291,16 @@ class userinterface:
             print("",".","                         .","                          .")
             print ("a7.........................d7...........................g7")
 
+    def mill_state(self,pos,player):    
+        self.values_for_mill[pos] = player
 
+    def remove_stone(self,pos):
+        self.values[pos] = "0 "
+        self.values_for_mill[pos] = 0
+        self.print_board()
+        print("\n")
+
+'''
 obj = userinterface()
 obj.values["a1"] = "B1"
 
@@ -304,6 +313,6 @@ if(obj.legal_move_2("B1", "g7")):
     obj.move_stone("B1", "g7", "a1")
 
 obj.print_board()
-
+'''
 
 
