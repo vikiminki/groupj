@@ -24,8 +24,7 @@ class game_manager:
             print("\n")
             if(self.phase == 1):
                 self.place()
-            else:
-                self.move()
+            self.move()
         if choice == "3":
             self.ui.values = {"a1":"B1", "d1":"W1", "g1":"B2", "e1":"W2", "b2":"W3", "d2":"B3", 
             "f2":"0 ", "c3":"0 ", "d3":"0 ", "e3":"0 ", "a4":"0 ", "b4":"W4", "c4":"B4", 
@@ -36,14 +35,15 @@ class game_manager:
         if choice == "4":
             self.ui.values = {"a1":"B1", "d1":"W1", "g1":"B2", "e1":"W2", "b2":"W3", "d2":"B3", 
             "f2":"0 ", "c3":"0 ", "d3":"0 ", "e3":"0 ", "a4":"0 ", "b4":"W4", "c4":"B4", 
-            "e4":"W9", "f4":"B8", "g4":"B6", "c5":"W6", "d5":"B7",
-            "e5":"B9", "b6":"W8","d6":"W7", "f6":"0 ", "a7":"0 ", "d7":"W5", "g7":"B5"}
+            "e4":"0 ", "f4":"B8", "g4":"B6", "c5":"W6", "d5":"B7",
+            "e5":"0 ", "b6":"W8","d6":"W7", "f6":"0 ", "a7":"0 ", "d7":"W5", "g7":"B5"}
             self.player_one["stones"] = 8
             self.player_two["stones"] = 8
             self.turn = 16
             print("Turn 16, 2 turns away from phase 2 initiated")
             self.place()
-      
+            self.move()
+        
         else:
             print("Wrong input, try again")
             self.init_game()
@@ -67,14 +67,17 @@ class game_manager:
             if(self.turn % 2 == 1):
                 self.ui.make_move(place, "B"+ str(self.player_one["stones"] + 1))
                 self.player_one["stones"] += 1
-                #self.ui.check_mill() takes 2 arguments: color and position
+                self.ui.check_mill() #takes 2 arguments: color and position
+            
             else:
                 self.ui.make_move(place, "W" + str(self.player_two["stones"] + 1))
                 self.player_two["stones"] += 1
-                #self.ui.check_mill() takes 2 arguments: color and position
-            if((self.player_one["stones"] > 9) and (self.player_two["stones"] >9)):
+                self.ui.check_mill() #takes 2 arguments: color and position
+            
+            if((self.player_one["stones"] > 8) and (self.player_two["stones"] > 8)):
                 self.phase = 2
-                print("Phase 2!")
+                return()
+                #self.move()
             else:
                 self.place()
         else:
@@ -94,19 +97,23 @@ class game_manager:
             print("Its " + self.player_one["name"] +"'s turn! Please pick a white stone. \n")
         
         stone = self.stone_exists() #pick stone
+        print("stone first assign: "+ stone)
         stone_color = self.ui.black_white(stone) 
         print("\n")
         if(self.turn % 2 == 1): #black's turn 
             pos_and_stone = self.move_is_legal(stone, "", "b")  
             pos = pos_and_stone[0]
             stone = pos_and_stone[1]
+            print("stone again : " + stone)
         else: #white's turn
             pos_and_stone = self.move_is_legal(stone, "", "w") 
             pos = pos_and_stone[0]
             stone = pos_and_stone[1]
- 
+            print("stone again : " + stone)
+        
         mydict = self.ui.values
         oldpos = list(mydict.keys())[list(mydict.values()).index(stone)] 
+
 
         print("\n")
         self.ui.move_stone(stone, pos, oldpos)
@@ -120,19 +127,24 @@ class game_manager:
         while(not(stone_color == color)):
             print("Select one of your stones, not your opponents! \n")
             stone = self.stone_exists()
+            print("3 stone: " + stone)
             stone_color = self.ui.black_white(stone)
         pos = input("Select position you wish to move stone to: \n")
-           
+        print("pos: " + pos)   
         while(not(self.ui.legal_move(pos))):
             if(not(pos in self.ui.values.keys())):
                 print("Position does not exist")
             pos = input("Not legal move. Enter another position or x to pick new stone: \n")
             if(pos == "x"): 
+                break
+                print("hej")
                 stone = self.stone_exists()
                 self.move_is_legal(stone, "", color)
-        print("returning: " + pos + stone)
-        return [pos, stone] #somehow always returns even if pos == "x"
-    
+                    
+        if(not (pos == "x")): 
+            print("returning: " + pos + stone)
+            return [pos, stone] 
+        
 
 
     def stone_exists(self): #returns stone when input has entered a stone that exists

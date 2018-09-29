@@ -19,7 +19,7 @@ class userinterface:
     #        "c3":"c3", "d3":"d3", "e3":"e3", "a4":"a4", "b4":"b4", "c4":"c4", "e4":"e4",
     #        "f4":"f4", "g4":"g4", "c5":"c5", "d5":"d5",
     #        "e5":"e5", "b6":"b6","d6":"d6", "f6":"f6", "a7":"a7", "d7":"d7", "g7":"g7"}
-    connections= {"a1": ("a4, d1"), "d1": ("a1", "g1", "d2"), "g1":("d1", "g4"), 
+    connections= {"a1": ("a4", "d1"), "d1": ("a1", "g1", "d2"), "g1":("d1", "g4"), 
             "b2":("b4", "d2"), "d2":("b2", "f2", "d1", "d3"), "f2":("d2", "f4"), 
             "c3":("c4", "d3"), "d3":("c3", "e3"), "e3":("d3", "e4"), 
             "a4":("a1", "b4", "a7"), "b4":("a4", "c4", "b2", "b6"), "c4":("b4","c3","c5"), 
@@ -58,11 +58,20 @@ class userinterface:
         return(legal_position)
 
     def legal_move_2(self, stone, dest_position): #checks if position is free & next to the stone
-        if(not(legal_move(position))):
+        if(not(self.legal_move(dest_position))):
             return(False)
-       #which is the position of the stone
-       #which connections does it have
-       #is dest_position one of the connections?
+        positions = self.values
+        oldpos = list(positions.keys())[list(positions.values()).index(stone)] #current position of stone
+        connections = self.connections[oldpos]
+
+        print("connections: " + connections[0] + connections[1])
+        if(dest_position in connections):
+            return True
+        else:
+            print("false")
+            return False
+        
+
         
     def black_white(self, stone): 
         if(stone in self.values.values()):
@@ -275,4 +284,20 @@ class userinterface:
             print("",".","                         .","                          .")
             print("",".","                         .","                          .")
             print ("a7.........................d7...........................g7")
+
+
+obj = userinterface()
+obj.values["a1"] = "B1"
+
+obj.print_board()
+if(obj.legal_move_2("B1", "a4")):
+    obj.move_stone("B1", "a4", "a1")
+obj.print_board()
+
+if(obj.legal_move_2("B1", "g7")):
+    obj.move_stone("B1", "g7", "a1")
+
+obj.print_board()
+
+
 
