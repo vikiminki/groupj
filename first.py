@@ -173,7 +173,7 @@ class game_manager:
             
         pos = input("Please select a position")
             
-        while(not(self.ui.legal_move(pos))):
+        while(not(self.ui.legal_move_2(stone,pos))):
             pos = input("Please, a valid position or type x to change the selected stone")
             if(pos == "x"):
                 return"x"        
