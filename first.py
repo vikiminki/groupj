@@ -52,12 +52,11 @@ class game_manager:
 
 
     def place(self):
-        #hejeeeeee
+        #venne
         self.ui.print_board()
         print("\n")
-        #vad händer
+        #en annan kommentar
         self.turn += 1
-        #heeelllooo
         if(self.turn % 2 == 1):
             print("Its " + self.player_one["name"] +"'s turn! Please place a black stone.\n")
         else:
