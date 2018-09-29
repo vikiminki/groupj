@@ -41,7 +41,12 @@ class userinterface:
     def move_stone(self, stone, newpos, oldpos):
         self.values[oldpos] = "0 " #doenst always seem to work
         self.values[newpos] = stone
-        
+    
+    def contains(self, stone):
+        if(stone in self.values.values()):
+            return True
+        else:
+            return False    
 
     def legal_move(self, position): #checks if position is free
         legal_position = False
