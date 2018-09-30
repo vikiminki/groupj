@@ -38,6 +38,7 @@ class userinterface:
         self.print_board()
         print("\n")
 
+
     def move_stone(self, stone, newpos, oldpos):
         self.values[oldpos] = "0 " #doenst always seem to work
         self.values[newpos] = stone
@@ -55,7 +56,38 @@ class userinterface:
             legal_position = True
         return(legal_position)
 
-
+    
+    def char_to_value(self,char):
+        dict = {"a":1,"b":2, "c":3, "d":4, "e":5, "f":6, "g":7}
+        for x in range(0,len(char)):
+            if(char[x] == type(str)):
+                char[x] = dict(char[x])
+                
+        
+        return(char)
+    
+    def detect_fly_atempt(self,lvl,old_pos,new_pos):
+        char_new = list(new_pos)
+        char_old = list(old_pos)
+        
+        char_trans_new = char_to_value(char_new)
+        char_trans_old = char_to_value(char_old)
+        
+        diff = [char_trans_new[0] - char_trans_old[0], char_trans_new[0] - char_trans_old[1], 
+                char_trans_new[1] - char_trans_old[0], char_trans_new[1] - char_trans_old[1]]
+    
+        if(max(abs(diff)) > lvl - 1):
+            fly_mode = True
+        else:
+            fly_mode = False
+            
+        return fly_mode
+                
+        '''
+            if(char_new[0]==char_old[0] or char_new[1]==char_old[0] or char_new[0]==char_old[1] or char_new[1]==char_old[1]):
+                #this is the condition for fly
+         '''   
+                
     def legal_move_2(self, stone, dest_position): #checks if position is free & next to the stone
         if(not(self.legal_move(dest_position))):
             return(False)
