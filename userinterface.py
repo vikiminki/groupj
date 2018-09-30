@@ -56,9 +56,9 @@ class userinterface:
             legal_position = True
         return(legal_position)
     
-    def char_to_value(self,char[]):
+    def char_to_value(self,char):
         dict = {"a":1,"b":2, "c":3, "d":4, "e":5, "f":6, "g":7}
-        for (x in range(0,len(char))):
+        for x in range(0,len(char)):
             if(char[x] == type(str)):
                 char[x] = dict(char[x])
                 
