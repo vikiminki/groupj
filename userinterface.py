@@ -31,7 +31,9 @@ class userinterface:
                      'c5':0, 'd5':1, 'e5':0, 
                      'b6':1, 'd6':0, 'f6':1, 
                      'a7':0, 'd7':1, 'g7':0}
-
+    
+          
+    
 
     def make_move(self, pos, player):
         self.values[pos] = player
@@ -315,4 +317,12 @@ class userinterface:
             print("",".","                         .","                          .")
             print ("a7.........................d7...........................g7")
 
+    def mill_state(self,pos,player):    
+        self.values_for_mill[pos] = player
+
+    def remove_stone(self,pos):
+        self.values[pos] = "0 "
+        self.values_for_mill[pos] = 0
+        self.print_board()
+        print("\n")
 
