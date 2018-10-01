@@ -55,12 +55,20 @@ class game_manager:
             self.init_game()
     
     def game_loop(self):
+        print("Enter Phase1 :")
         while(self.turn < 19):
             self.place()
-            self.turn += 1 
-        while((self.player_one["stones"] > 3) or (self.player_two["stones"] > 3)):
-            self.move()
             self.turn += 1
+        print("Enter Phase2 :")
+        while((self.player_one["stones"] >= 3) and (self.player_two["stones"] >= 3)):
+            # if one of the player has only 3 stones, then he/she can use fly() function.
+            if((self.player_one["stones"] == 3) or (self.player_two["stones"] == 3)):
+                # should detect move() or fly()
+                self.move()
+                self.turn += 1
+            else:
+                self.move()
+                self.turn += 1
             ''' # end_of_game need to be fixed, so I block it first.
             if(self.end_of_game):
                 print("End of game yo!")
@@ -160,11 +168,13 @@ class game_manager:
                                     self.ui.remove_stone(pos)
                                     mill_number -= 1
                                     self.white_stones -= 1
+                                    self.player_two["stones"] -= 1
                                 elif(remove_check_mill_number == 1): # pos is in a mill
                                     if(self.white_stones < 4): # if less than 4 stones
                                         self.ui.remove_stone(pos)
                                         mill_number -= 1
                                         self.white_stones -= 1
+                                        self.player_two["stones"] -= 1
                                     else:
                                         print("You need to remove the stone not in a mill first!")
                                 else: # pos is in two mill
@@ -172,6 +182,7 @@ class game_manager:
                                         self.ui.remove_stone(pos)
                                         mill_number -= 1
                                         self.white_stones -= 1
+                                        self.player_two["stones"] -= 1
                                     else:
                                         print("You need to remove the stone not in a mill first!")
                             else:
@@ -193,11 +204,13 @@ class game_manager:
                                     self.ui.remove_stone(pos)
                                     mill_number -= 1
                                     self.black_stones -= 1
+                                    self.player_one["stones"] -= 1
                                 elif(remove_check_mill_number == 1):
                                     if(self.black_stones < 4):
                                         self.ui.remove_stone(pos)
                                         mill_number -= 1
                                         self.blcak_stones -= 1
+                                        self.player_one["stones"] -= 1
                                     else:
                                         print("You need to remove the stone not in a mill first!")
                                 else:
@@ -205,6 +218,7 @@ class game_manager:
                                         self.ui.remove_stone(pos)
                                         mill_number -= 1
                                         self.black_stones -= 1
+                                        self.player_one["stones"] -= 1
                                     else:
                                         print("You need to remove the stone not in a mill first!")
                             else:
@@ -304,25 +318,29 @@ class game_manager:
         self.turn += 1
         self.ui.print_board()
         
-        if(self.player_one["stones"] < 4):
+        if(self.player_one["stones"] < 4): # if black has only 3 stones
             print("Fly has now been enabled for " +self.player_one["name"] )
-        elif(self.player_two["stones"] < 4):
+        elif(self.player_two["stones"] < 4): # if white has only 3 stones
             print("Fly has now been enabled for " +self.player_one["name"])
+        else: # both black and white have more than 3 stones
+            break
 
         result = "x"
         print("\n") 
         print("To move type the the stone you wish to move, e.g. B4")
         
-        if(self.turn % 2 == 1):
+        if(self.turn % 2 == 1): # black turn
             print("Its " + self.player_one["name"] +"'s turn! Please pick a black stone.\n")
-            stone = input("Please select a stone")
+            stone = input("Please select a stone : ")
             
-            while(not(self.ui.black_white(stone) == "b")):
-                stone = input("Please select a stone")
+            while(not(self.ui.black_white(stone) == "b")): # black_white() return "w" or "b" or "0"
+                stone = input("Please select a black stone : ")
             
             while(result == "x"):
-                pos = self.ui.values.key(stone)
-                des = input("Select where you want to move")
+                pos = self.ui.values.key(stone) # pos is the position of the stone you choose.
+                des = input("Select where you want to move : ")
+
+            ###################    
                 
                 if(self.ui.detect_fly_attempt(lvl[pos],pos,des)):
                     while(not(fly_alg(pos, des)) or not(self.ui.legal_move_2(stone,des))):
@@ -334,16 +352,16 @@ class game_manager:
                     result = self.move_algorithm()
                 
             # now put stone using the place and remove the old one
-        else:
+        else: # white turn
             print("Its " + self.player_one["name"] +"'s turn! Please pick a white stone. \n")
-            stone = input("Please select a ston")
+            stone = input("Please select a stone : ")
             
-            while(not(self.ui.black_white(stone) == "w")):
-                stone = input("Please select a stone")
+            while(not(self.ui.black_white(stone) == "w")): # black_white() return "w" or "b" or "0"
+                stone = input("Please select a white stone : ")
                 
             while(result == "x"):
                 pos = self.ui.values.key(stone)
-                des = input("Select where you want to move")
+                des = input("Select where you want to move : ")
                 
                 if(self.ui.detect_fly_attempt(lvl[pos],pos,des)):
                     while(not(fly_alg(pos, des)) or not(self.ui.legal_move_2(stone,des))):
@@ -375,11 +393,13 @@ class game_manager:
         
     def fly_alg(self, pos, des): # pos => the stone you want to fly, des => destination
         if(pos in self.ui.values.keys()): # make sure pos is legal
-            player_color = self.ui.values_for_mill[pos] # detect the color
+            player_color = self.ui.values_for_mill[pos] # detect the color, return "B", "W", 0, 1
+
             if(self.turn % 2 == 1): # black turn
                 if(player_color == "B"): # choose to move black stone
                     if(self.ui.values_for_mill[des] != "B" and self.ui.values_for_mill[des] != "W"): # make sure des is clear
                         if(des[0] == pos[0] or des[1] == pos[1]): # make sure on the line
+
                             if(des[0] == pos[0]): # column fly
                                 if(des[0] != 'd'): # if not on 'd' column
                                     # make sure no stone between pos and des
@@ -414,11 +434,22 @@ class game_manager:
                                         if(self.ui.values_for_mill[f4] != "B" and self.ui.values_for_mill[f4] != "W"):
                                             if(abs(ord(des[0]) - ord(pos[0])) == 2):
                                                 # legal to fly
-                                                return True        
+                                                return True
+                        else:
+                            print("The destination you choose is illegal.")
+                            return False
+                    else:
+                        print("There is stone between the you and the destination.")
+                        return False
+                else:
+                    print("You need to choose a black stone.")
+                    return False
+                    
             else: # white turn
                 if(player_color == "W"): # choose to move white stone
                     if(self.ui.values_for_mill[des] != "B" and self.ui.values_for_mill[des] != "W"): # make sure des is clear
                         if(des[0] == pos[0] or des[1] == pos[1]): # make sure on the line
+
                             if(des[0] == pos[0]): # column fly
                                 if(des[0] != 'd'): # if not on 'd' column
                                     # make sure no stone between pos and des
@@ -454,6 +485,15 @@ class game_manager:
                                             if(abs(ord(des[0]) - ord(pos[0])) == 2):
                                                 # legal to fly
                                                 return True
+                        else:
+                            print("The destination you choose is illegal.")
+                            return False
+                    else:
+                        print("There is stone between the you and the destination.")
+                        return False
+                else:
+                    print("You need to choose a black stone.")
+                    return False
         #else:
         return False    
 
