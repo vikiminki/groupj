@@ -55,15 +55,17 @@ class game_manager:
             self.init_game()
     
     def game_loop(self):
-        while(self.turn < 18):
+        while(self.turn < 19):
             self.place()
             self.turn += 1 
         while((self.player_one["stones"] > 3) or (self.player_two["stones"] > 3)):
             self.move()
             self.turn += 1
+            ''' # end_of_game need to be fixed, so I block it first.
             if(self.end_of_game):
                 print("End of game yo!")
                 break
+            '''
 
     def end_of_game(self):
         if((self.player_one["stones"] < 3) or (self.player_two["stones"] < 3)):
@@ -125,16 +127,21 @@ class game_manager:
                 result = self.move_algorithm()
             
         else:
-            print("Its " + self.player_one["name"] +"'s turn! Please pick a white stone. \n")
+            print("Its " + self.player_two["name"] +"'s turn! Please pick a white stone. \n")
             
             while(result == "x"):
                  result = self.move_algorithm()
-
                  
         mydict = self.ui.values
         oldpos = list(mydict.keys())[list(mydict.values()).index(result[0])]    
         self.ui.move_stone(result[0], result[1], oldpos)
 
+        if(self.turn % 2 == 1):
+            self.ui.mill_state(result[1], "B") #shang add
+        else:
+            self.ui.mill_state(result[1], "W") #shang add
+        self.ui.values_for_mill[oldpos] = 0 #shang add
+        self.mill(result[1]) #shang add
             
     def mill(self, place):
         if(self.player_one["stones"] > 2 or self.player_two["stones"] > 2): #shang add
@@ -238,35 +245,54 @@ class game_manager:
             stone = input("Please select a stone")
             
         if(self.turn % 2 == 1):
-          '''  
-            
->>>>>>> 8434220fa7b84b19e11a3a94a030fab9fb06a79f
-            
-            
+          '''             
             
     def move_algorithm(self):
-        stone = input("Please select a stone that is black")
-        color = self.ui.black_white(stone)
-        
-        while(not(self.ui.black_white(stone) == color)):
-                stone = input("Please select a stone that is black")
+        if(self.turn % 2 == 1): # black turn
+            stone = input("Please select a stone that is black : ")
+            color = self.ui.black_white(stone) # detect the color being choosed.
+            
+            #while(not(self.ui.black_white(stone) == color)):
+            while(not("b" == color)):
+                stone = input("Please select a stone that is black again : ")
                 color = self.ui.black_white(stone)
+                    
+            #Checks if contains. contains gives boolean
+            while(not(self.ui.contains(stone))):
+                stone = input("Please select a stone that exists on the board : ")
                 
-        #Checks if contains. contains gives boolean
-        while(not(self.ui.contains(stone))):
-            stone = input("Please select a stone that exists on the board")
+            pos = input("Please select the position : ")
+                
+            while(not(self.ui.legal_move_2(stone, pos))):
+                pos = input("Please, a valid position or type x to change the selected stone : ")
+                if(pos == "x"):
+                    return "x"        
             
-        pos = input("Please select a position")
+            result = [stone, pos]            
+            return(result)
+
+        else: # white turn
+            stone = input("Please select a stone that is white : ")
+            color = self.ui.black_white(stone) # detect the color being choosed.
             
-        while(not(self.ui.legal_move_2(stone,pos))):
-            pos = input("Please, a valid position or type x to change the selected stone")
-            if(pos == "x"):
-                return"x"        
-        
-        result = [stone,pos]
-        
-        return(result)  
-    
+            #while(not(self.ui.black_white(stone) == color)):
+            while(not("w" == color)):
+                stone = input("Please select a stone that is white again : ")
+                color = self.ui.black_white(stone)
+                    
+            #Checks if contains. contains gives boolean
+            while(not(self.ui.contains(stone))):
+                stone = input("Please select a stone that exists on the board : ")
+                
+            pos = input("Please select a position : ")
+                
+            while(not(self.ui.legal_move_2(stone, pos))):
+                pos = input("Please, a valid position or type x to change the selected stone : ")
+                if(pos == "x"):
+                    return "x"        
+            
+            result = [stone, pos]            
+            return(result)
 
     
     def fly(self):

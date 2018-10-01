@@ -31,19 +31,17 @@ class userinterface:
                      'c5':0, 'd5':1, 'e5':0, 
                      'b6':1, 'd6':0, 'f6':1, 
                      'a7':0, 'd7':1, 'g7':0}
-    
-          
-    
 
     def make_move(self, pos, player):
         self.values[pos] = player
         self.print_board()
         print("\n")
 
-
     def move_stone(self, stone, newpos, oldpos):
         self.values[oldpos] = "0 " #doenst always seem to work
         self.values[newpos] = stone
+        self.print_board() #shang add
+        print("\n") #shang add
     
     def contains(self, stone):
         if(stone in self.values.values()):
@@ -105,7 +103,7 @@ class userinterface:
         
 
         
-    def black_white(self, stone): 
+    def black_white(self, stone): # return "w" or "b" or "0"
         if(stone in self.values.values()):
             for x in range(1,9):
                 if(("W"+str(x))==stone):
