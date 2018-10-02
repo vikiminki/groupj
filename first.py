@@ -57,18 +57,15 @@ class game_manager:
     def game_loop(self):
         print("Enter Phase1 :")
         while(self.turn < 19):
-            print("Now is " + str(self.turn) + " turn(s).")
             self.place()
             self.turn += 1
         print("Enter Phase2 :")
         while((self.player_one["stones"] >= 3) and (self.player_two["stones"] >= 3)):
             # if one of the player has only 3 stones, then he/she can use fly() function.
             if(self.player_one["stones"] == 3 or self.player_two["stones"] == 3):
-                print("Now is " + str(self.turn) + " turn(s).")
                 self.fly()
                 self.turn += 1
             else:
-                print("Now is " + str(self.turn) + " turn(s).")
                 self.move()
                 self.turn += 1
             ''' # end_of_game need to be fixed, so I block it first.
@@ -99,13 +96,14 @@ class game_manager:
     def place(self):
         self.ui.print_board()
         print("\n")
+        print("Now is " + str(self.turn) + " turn(s).")
         if(self.turn % 2 == 1):
             print("Its " + self.player_one["name"] +"'s turn! Please place a black stone.\n")
         else:
             print("Its " + self.player_two["name"] +"'s turn! Please place a white stone. \n")
         
         print("To place a stone type the position you want to place a stone in, f.e g7.")
-        place = input("Place stone: \n")
+        place = input("Place stone: ")
         if(self.ui.legal_move(place)):
             if(self.turn % 2 == 1):
                 #self.ui.make_move(place, "B"+ str(self.player_one["stones"] + 1))
@@ -128,7 +126,8 @@ class game_manager:
                         
     def move(self):
         result = "x"
-        print("\n") 
+        print("\n")
+        print("Now is " + str(self.turn) + " turn(s).")
         print("To move type the the stone you wish to move, e.g. B4")
         
         
@@ -168,6 +167,7 @@ class game_manager:
                         if(pos in self.ui.values.keys()):
                             if(self.ui.values_for_mill[pos] == "W"): # Make sure you are not trying to remove your own stone
                                 remove_check_mill_number = self.ui.check_mill("W", pos)
+
                                 if(remove_check_mill_number == 0): # pos is not in a mill
                                     self.ui.remove_stone(pos)
                                     mill_number -= 1
@@ -204,6 +204,7 @@ class game_manager:
                         if(pos in self.ui.values.keys()):
                             if(self.ui.values_for_mill[pos] == "B"):
                                 remove_check_mill_number = self.ui.check_mill("B", pos)
+
                                 if(remove_check_mill_number == 0): # pos is not in a mill
                                     self.ui.remove_stone(pos)
                                     mill_number -= 1
@@ -318,6 +319,7 @@ class game_manager:
         listOfLevels = {"a1":lvl[0], "d1":lvl[0], "g1":lvl[0], "g4":lvl[0], "g7":lvl[0], "d7":lvl[0], "a7":lvl[0], "a4":lvl[0],
                        "b2":lvl[1], "d2":lvl[1], "f2":lvl[1], "f4":lvl[1], "f6":lvl[1], "d6":lvl[1], "b6":lvl[1], "b4":lvl[1],
                        "c3":lvl[2], "d3":lvl[2], "e3":lvl[2], "e4":lvl[2], "e5":lvl[2], "d5":lvl[2], "c5":lvl[2], "c4":lvl[2]}
+        print("Now is " + str(self.turn) + " turn(s).")
         if(self.turn % 2 == 1): # black turn
             if(self.player_one["stones"] == 3):
                 print("Black enter Phase3 : ")
