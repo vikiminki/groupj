@@ -57,16 +57,18 @@ class game_manager:
     def game_loop(self):
         print("Enter Phase1 :")
         while(self.turn < 19):
+            print("Now is " + str(self.turn) + " turn(s).")
             self.place()
             self.turn += 1
         print("Enter Phase2 :")
         while((self.player_one["stones"] >= 3) and (self.player_two["stones"] >= 3)):
             # if one of the player has only 3 stones, then he/she can use fly() function.
-            if((self.player_one["stones"] == 3) or (self.player_two["stones"] == 3)):
-                # should detect move() or fly()
-                self.move()
+            if(self.player_one["stones"] == 3 or self.player_two["stones"] == 3):
+                print("Now is " + str(self.turn) + " turn(s).")
+                self.fly()
                 self.turn += 1
             else:
+                print("Now is " + str(self.turn) + " turn(s).")
                 self.move()
                 self.turn += 1
             ''' # end_of_game need to be fixed, so I block it first.
@@ -102,17 +104,19 @@ class game_manager:
         else:
             print("Its " + self.player_two["name"] +"'s turn! Please place a white stone. \n")
         
-        print("To place a stone type the position you want to place a stone in, f.e g7. \n")
+        print("To place a stone type the position you want to place a stone in, f.e g7.")
         place = input("Place stone: \n")
         if(self.ui.legal_move(place)):
             if(self.turn % 2 == 1):
-                self.ui.make_move(place, "B"+ str(self.player_one["stones"] + 1))
+                #self.ui.make_move(place, "B"+ str(self.player_one["stones"] + 1))
+                self.ui.make_move(place, "B"+ str(int((self.turn + 1) / 2)))
                 self.ui.mill_state(place, "B") #shang add
                 self.player_one["stones"] += 1
                 self.black_stones += 1 #shang add                
             
             else:
-                self.ui.make_move(place, "W" + str(self.player_two["stones"] + 1))
+                #self.ui.make_move(place, "W" + str(self.player_two["stones"] + 1))
+                self.ui.make_move(place, "W"+ str(int((self.turn + 1) / 2)))
                 self.ui.mill_state(place, "W") #shang add
                 self.player_two["stones"] += 1
                 self.white_stones += 1 #shang add
@@ -314,16 +318,59 @@ class game_manager:
         listOfLevels = {"a1":lvl[0], "d1":lvl[0], "g1":lvl[0], "g4":lvl[0], "g7":lvl[0], "d7":lvl[0], "a7":lvl[0], "a4":lvl[0],
                        "b2":lvl[1], "d2":lvl[1], "f2":lvl[1], "f4":lvl[1], "f6":lvl[1], "d6":lvl[1], "b6":lvl[1], "b4":lvl[1],
                        "c3":lvl[2], "d3":lvl[2], "e3":lvl[2], "e4":lvl[2], "e5":lvl[2], "d5":lvl[2], "c5":lvl[2], "c4":lvl[2]}
-        
-        self.turn += 1
-        self.ui.print_board()
-        
+        if(self.turn % 2 == 1): # black turn
+            if(self.player_one["stones"] == 3):
+                print("Black enter Phase3 : ")
+                stone = input("Enter a black stone you want to move. (i.e. B4) : ")
+                if(stone[0] == 'B'):
+                    des = input("Enter the place you want to go. (i.e. f6) : ")
+                    pos = list(self.ui.values.keys())[list(self.ui.values.values()).index(stone)] #current position of stone
+
+                    if(self.fly_alg(pos, des) == True):
+                        self.ui.move_stone(stone, des, pos)
+                        self.ui.mill_state(des, "B") #shang add
+                        self.ui.values_for_mill[pos] = 0 #shang add
+                        self.mill(des) #shang add
+                    else:
+                        print("This move is illegal, please try again. \n")
+                        self.fly()
+                else:
+                    print("Only black stone, please try again. \n")
+                    self.fly()
+            else:
+                self.move()
+
+        else: # white turn
+            if(self.player_two["stones"] == 3):
+                print("White enter Phase3 : ")
+                stone = input("Enter a white stone you want to move. (i.e. W7) : ")
+                if(stone[0] == 'W'):
+                    des = input("Enter the place you want to go. (i.e. f6) : ")
+                    pos = list(self.ui.values.keys())[list(self.ui.values.values()).index(stone)] #current position of stone
+
+                    if(self.fly_alg(pos, des) == True):
+                        self.ui.move_stone(stone, des, pos)
+                        self.ui.mill_state(des, "W") #shang add
+                        self.ui.values_for_mill[pos] = 0 #shang add
+                        self.mill(des) #shang add
+                    else:
+                        print("This move is illegal, please try again. \n")
+                        self.fly()
+                else:
+                    print("Only white stone, please try again. \n")
+                    self.fly()
+            else:
+                self.move()
+
+        #self.turn += 1
+        #self.ui.print_board()
+        '''        
         if(self.player_one["stones"] < 4): # if black has only 3 stones
             print("Fly has now been enabled for " +self.player_one["name"] )
         elif(self.player_two["stones"] < 4): # if white has only 3 stones
             print("Fly has now been enabled for " +self.player_one["name"])
         else: # both black and white have more than 3 stones
-            break
+            exit()
 
         result = "x"
         print("\n") 
@@ -376,7 +423,7 @@ class game_manager:
         mydict = self.ui.values
         oldpos = list(mydict.keys())[list(mydict.values()).index(result[0])]
         self.ui.move_stone(result[0], result[1], oldpos)
-        
+        '''        
         
     def selection_process(self):
         print("Its " + self.player_one["name"] +"'s turn! Please pick a black stone.\n")
@@ -385,12 +432,7 @@ class game_manager:
         while(self.ui.black_white(stone) == "b"):
             print("Its " + self.player_one["name"] +"'s turn! Please pick a black stone.\n")
             stone = input("Please select a stone")
-            
-        
-            
-                
-                
-        
+
     def fly_alg(self, pos, des): # pos => the stone you want to fly, des => destination
         if(pos in self.ui.values.keys()): # make sure pos is legal
             player_color = self.ui.values_for_mill[pos] # detect the color, return "B", "W", 0, 1
@@ -404,35 +446,41 @@ class game_manager:
                                 if(des[0] != 'd'): # if not on 'd' column
                                     # make sure no stone between pos and des
                                     if(self.ui.values_for_mill[des[0] + str(4)] != "B" and self.ui.values_for_mill[des[0] + str(4)] != "W"):
-                                        if(abs(int(des[1]) - int(pos[1])) >= 2):
+                                        #if(abs(int(des[1]) - int(pos[1])) >= 2):
+                                        if(abs(int(des[1]) - int(pos[1])) >= 1):
                                             # legal to fly
                                             return True
                                 else: # if on 'd' column
                                     if(des[1] <= 3): # between d1 - d3
                                         if(self.ui.values_for_mill[d2] != "B" and self.ui.values_for_mill[d2] != "W"):
-                                            if(abs(int(des[1]) - int(pos[1])) == 2):
+                                            #if(abs(int(des[1]) - int(pos[1])) == 2):
+                                            if(abs(int(des[1]) - int(pos[1])) <= 2):
                                                 # legal to fly
                                                 return True
                                     else: # between d5 - d7
                                         if(self.ui.values_for_mill[d6] != "B" and self.ui.values_for_mill[d6] != "W"):
-                                            if(abs(int(des[1]) - int(pos[1])) == 2):
+                                            #if(abs(int(des[1]) - int(pos[1])) == 2):
+                                            if(abs(int(des[1]) - int(pos[1])) <= 2):
                                                 # legal to fly
                                                 return True
                             else: # row fly
                                 if(des[1] != '4'): # if not on '4' row
-                                    if(self.ui.values_for_mill[d + des[1]] != "B" and self.ui.values_for_mill[d + des[1]] != "W"):
-                                        if(abs(ord(des[0]) - ord(pos[0])) >= 2):
+                                    if(self.ui.values_for_mill['d' + des[1]] != "B" and self.ui.values_for_mill['d' + des[1]] != "W"):
+                                        #if(abs(ord(des[0]) - ord(pos[0])) >= 2):
+                                        if(abs(ord(des[0]) - ord(pos[0])) >= 1):
                                             # legal to fly
                                             return True
                                 else: # if on '4' row
                                     if(ord(des[0]) <= 99): # between a4 - c4
                                         if(self.ui.values_for_mill[b4] != "B" and self.ui.values_for_mill[b4] != "W"):
-                                            if(abs(ord(des[0]) - ord(pos[0])) == 2):
+                                            #if(abs(ord(des[0]) - ord(pos[0])) == 2):
+                                            if(abs(ord(des[0]) - ord(pos[0])) <= 2):
                                                 # legal to fly
                                                 return True
                                     else: # between e4 - g4
                                         if(self.ui.values_for_mill[f4] != "B" and self.ui.values_for_mill[f4] != "W"):
-                                            if(abs(ord(des[0]) - ord(pos[0])) == 2):
+                                            #if(abs(ord(des[0]) - ord(pos[0])) == 2):
+                                            if(abs(ord(des[0]) - ord(pos[0])) <= 2):
                                                 # legal to fly
                                                 return True
                         else:
@@ -444,7 +492,7 @@ class game_manager:
                 else:
                     print("You need to choose a black stone.")
                     return False
-                    
+
             else: # white turn
                 if(player_color == "W"): # choose to move white stone
                     if(self.ui.values_for_mill[des] != "B" and self.ui.values_for_mill[des] != "W"): # make sure des is clear
@@ -454,35 +502,35 @@ class game_manager:
                                 if(des[0] != 'd'): # if not on 'd' column
                                     # make sure no stone between pos and des
                                     if(self.ui.values_for_mill[des[0] + str(4)] != "B" and self.ui.values_for_mill[des[0] + str(4)] != "W"):
-                                        if(abs(int(des[1]) - int(pos[1])) >= 2):
+                                        if(abs(int(des[1]) - int(pos[1])) >= 1):
                                             # legal to fly
                                             return True
                                 else: # if on 'd' column
                                     if(des[1] <= 3): # between d1 - d3
                                         if(self.ui.values_for_mill[d2] != "B" and self.ui.values_for_mill[d2] != "W"):
-                                            if(abs(int(des[1]) - int(pos[1])) == 2):
+                                            if(abs(int(des[1]) - int(pos[1])) <= 2):
                                                 # legal to fly
                                                 return True
                                     else: # between d5 - d7
                                         if(self.ui.values_for_mill[d6] != "B" and self.ui.values_for_mill[d6] != "W"):
-                                            if(abs(int(des[1]) - int(pos[1])) == 2):
+                                            if(abs(int(des[1]) - int(pos[1])) <= 2):
                                                 # legal to fly
                                                 return True
                             else: # row fly
                                 if(des[1] != '4'): # if not on '4' row
-                                    if(self.ui.values_for_mill[d + des[1]] != "B" and self.ui.values_for_mill[d + des[1]] != "W"):
-                                        if(abs(ord(des[0]) - ord(pos[0])) >= 2):
+                                    if(self.ui.values_for_mill['d' + des[1]] != "B" and self.ui.values_for_mill['d' + des[1]] != "W"):
+                                        if(abs(ord(des[0]) - ord(pos[0])) >= 1):
                                             # legal to fly
                                             return True
                                 else: # if on '4' row
                                     if(ord(des[0]) <= 99): # between a4 - c4
                                         if(self.ui.values_for_mill[b4] != "B" and self.ui.values_for_mill[b4] != "W"):
-                                            if(abs(ord(des[0]) - ord(pos[0])) == 2):
+                                            if(abs(ord(des[0]) - ord(pos[0])) <= 2):
                                                 # legal to fly
                                                 return True
                                     else: # between e4 - g4
                                         if(self.ui.values_for_mill[f4] != "B" and self.ui.values_for_mill[f4] != "W"):
-                                            if(abs(ord(des[0]) - ord(pos[0])) == 2):
+                                            if(abs(ord(des[0]) - ord(pos[0])) <= 2):
                                                 # legal to fly
                                                 return True
                         else:

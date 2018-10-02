@@ -17,9 +17,9 @@ class userinterface:
             "a7":"0 ", "d7":"0 ", "g7":"0 "}
     connections= {"a1": ("a4", "d1"), "d1": ("a1", "g1", "d2"), "g1":("d1", "g4"), 
             "b2":("b4", "d2"), "d2":("b2", "f2", "d1", "d3"), "f2":("d2", "f4"), 
-            "c3":("c4", "d3"), "d3":("c3", "e3"), "e3":("d3", "e4"), 
+            "c3":("c4", "d3"), "d3":("c3", "e3", "d2"), "e3":("d3", "e4"), 
             "a4":("a1", "b4", "a7"), "b4":("a4", "c4", "b2", "b6"), "c4":("b4","c3","c5"), 
-            "e4":("e3", "e5"),"f4":("f2", "f6", "e4", "g4"), "g4":("g1", "g7"), 
+            "e4":("e3", "f4", "e5"),"f4":("f2", "f6", "e4", "g4"), "g4":("g1", "f4", "g7"), 
             "c5":("c4", "d5"), "d5":("c5", "e5", "d6"), "e5":("e4", "d5"), 
             "b6":("b4", "d6"),"d6":("b6", "f6", "d5", "d7"), "f6":("d6", "f4"), 
             "a7":("a4", "d7"), "d7":("a7", "d6", "g7"), "g7":("d7", "g4")}   
@@ -104,11 +104,12 @@ class userinterface:
 
         
     def black_white(self, stone): # return "w" or "b" or "0"
+        result = "0"
         if(stone in self.values.values()):
-            for x in range(1,9):
-                if(("W"+str(x))==stone):
+            for x in range(1,10): # W9 can not be detected
+                if(("W"+str(x)) == stone):
                     result = "w"
-                elif(("B"+str(x))==stone):
+                elif(("B"+str(x)) == stone):
                     result = "b"
         else:
             result = "0"
