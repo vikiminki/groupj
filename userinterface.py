@@ -33,6 +33,15 @@ class userinterface:
                      'b6':1, 'd6':0, 'f6':1, 
                      'a7':0, 'd7':1, 'g7':0}
 
+    def mill_state(self,pos,player):    
+        self.values_for_mill[pos] = player
+
+    def remove_stone(self,pos):
+        self.values[pos] = "0 "
+        self.values_for_mill[pos] = 0
+        self.print_board()
+        print("\n")
+
     def make_move(self, pos, player):
         self.values[pos] = player
         self.print_board()
@@ -63,8 +72,7 @@ class userinterface:
         for x in range(0,len(char)):
             if(char[x] == type(str)):
                 char[x] = dict(char[x])
-                
-        
+
         return(char)
     
     def detect_fly_atempt(self,lvl,old_pos,new_pos):
@@ -102,8 +110,6 @@ class userinterface:
         else:
             return False
         
-
-        
     def black_white(self, stone): # return "w" or "b" or "0"
         result = "0"
         if(stone in self.values.values()):
@@ -114,8 +120,7 @@ class userinterface:
                     result = "b"
         else:
             result = "0"
-        return(result)
-          
+        return(result)          
 
     def check_mill(self, color, position): #return 0 if no mill, return 1 if mill
         mill_counter = 0
@@ -267,14 +272,12 @@ class userinterface:
         else:
             return 0
 
-
-
     def print_board(self):
         os.system("cls")
         print("...a.........b........c.......d........e........f.........g")
         print("1.",self.values["a1"],".......................",self.values["d1"],".......................",self.values["g1"],)
         print("..",".","                         .","                          .")
-        print(".",".","                          .","                          .")
+        print("..",".","                         .","                          .")
         print("2.",".        ",self.values["b2"],".............",self.values["d2"],".............",self.values["f2"],"        .")
         print("..",".","        .                .","                .         .")
         print("..",".","        .                .","                .         .")
@@ -316,13 +319,3 @@ class userinterface:
         print("",".","                         .","                          .")
         print("",".","                         .","                          .")
         print ("a7.........................d7...........................g7")
-
-    def mill_state(self,pos,player):    
-        self.values_for_mill[pos] = player
-
-    def remove_stone(self,pos):
-        self.values[pos] = "0 "
-        self.values_for_mill[pos] = 0
-        self.print_board()
-        print("\n")
-
