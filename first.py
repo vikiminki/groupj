@@ -168,27 +168,29 @@ class game_manager:
                             if(self.ui.values_for_mill[pos] == "W"): # Make sure you are not trying to remove your own stone
                                 remove_check_mill_number = self.ui.check_mill("W", pos)
 
+                                switch = 0
                                 if(remove_check_mill_number == 0): # pos is not in a mill
                                     self.ui.remove_stone(pos)
                                     mill_number -= 1
                                     self.white_stones -= 1
                                     self.player_two["stones"] -= 1
-                                elif(remove_check_mill_number == 1): # pos is in a mill
-                                    if(self.white_stones < 4): # if less than 4 stones
+
+                                else: # pos is in mill
+                                    for x in range(0,24):
+                                        m_color = list(self.ui.values_for_mill.values())[x]
+                                        if(m_color == "W"):
+                                            m_pos = list(self.ui.values_for_mill.keys())[x]
+                                            check = self.ui.check_mill("W", m_pos)
+                                            if(check == 0):
+                                                switch += 1
+                                    if(switch > 0):
+                                        print("You need to remove the stone not in a mill first!")
+                                        self.mill(pos)
+                                    else:
                                         self.ui.remove_stone(pos)
                                         mill_number -= 1
                                         self.white_stones -= 1
-                                        self.player_two["stones"] -= 1
-                                    else:
-                                        print("You need to remove the stone not in a mill first!")
-                                else: # pos is in two mill
-                                    if(self.white_stones < 6): # if less than 6 stones
-                                        self.ui.remove_stone(pos)
-                                        mill_number -= 1
-                                        self.white_stones -= 1
-                                        self.player_two["stones"] -= 1
-                                    else:
-                                        print("You need to remove the stone not in a mill first!")
+                                        self.player_two["stones"] -= 1                                    
                             else:
                                 print("You are trying to remove your own stone, try again!")
                         else:
@@ -205,27 +207,29 @@ class game_manager:
                             if(self.ui.values_for_mill[pos] == "B"):
                                 remove_check_mill_number = self.ui.check_mill("B", pos)
 
+                                switch = 0
                                 if(remove_check_mill_number == 0): # pos is not in a mill
                                     self.ui.remove_stone(pos)
                                     mill_number -= 1
                                     self.black_stones -= 1
                                     self.player_one["stones"] -= 1
-                                elif(remove_check_mill_number == 1):
-                                    if(self.black_stones < 4):
-                                        self.ui.remove_stone(pos)
-                                        mill_number -= 1
-                                        self.blcak_stones -= 1
-                                        self.player_one["stones"] -= 1
-                                    else:
+
+                                else: # pos is in mill
+                                    for x in range(0,24):
+                                        m_color = list(self.ui.values_for_mill.values())[x]
+                                        if(m_color == "B"):
+                                            m_pos = list(self.ui.values_for_mill.keys())[x]
+                                            check = self.ui.check_mill("B", m_pos)
+                                            if(check == 0):
+                                                switch += 1 
+                                    if(switch > 0):
                                         print("You need to remove the stone not in a mill first!")
-                                else:
-                                    if(self.black_stones < 6):
+                                        self.mill(pos)
+                                    else:
                                         self.ui.remove_stone(pos)
                                         mill_number -= 1
                                         self.black_stones -= 1
                                         self.player_one["stones"] -= 1
-                                    else:
-                                        print("You need to remove the stone not in a mill first!")
                             else:
                                 print("You are trying to remove your own stone, try again!")
                         else:
@@ -454,17 +458,21 @@ class game_manager:
                                             return True
                                 else: # if on 'd' column
                                     if(des[1] <= 3): # between d1 - d3
-                                        if(self.ui.values_for_mill[d2] != "B" and self.ui.values_for_mill[d2] != "W"):
+                                        if(self.ui.values_for_mill['d2'] != "B" and self.ui.values_for_mill['d2'] != "W"):
                                             #if(abs(int(des[1]) - int(pos[1])) == 2):
                                             if(abs(int(des[1]) - int(pos[1])) <= 2):
                                                 # legal to fly
                                                 return True
+                                        if(pos == 'd2')
+                                            return True
                                     else: # between d5 - d7
-                                        if(self.ui.values_for_mill[d6] != "B" and self.ui.values_for_mill[d6] != "W"):
+                                        if(self.ui.values_for_mill['d6'] != "B" and self.ui.values_for_mill['d6'] != "W"):
                                             #if(abs(int(des[1]) - int(pos[1])) == 2):
                                             if(abs(int(des[1]) - int(pos[1])) <= 2):
                                                 # legal to fly
                                                 return True
+                                        if(pos == 'd6')
+                                            return True
                             else: # row fly
                                 if(des[1] != '4'): # if not on '4' row
                                     if(self.ui.values_for_mill['d' + des[1]] != "B" and self.ui.values_for_mill['d' + des[1]] != "W"):
@@ -474,17 +482,21 @@ class game_manager:
                                             return True
                                 else: # if on '4' row
                                     if(ord(des[0]) <= 99): # between a4 - c4
-                                        if(self.ui.values_for_mill[b4] != "B" and self.ui.values_for_mill[b4] != "W"):
+                                        if(self.ui.values_for_mill['b4'] != "B" and self.ui.values_for_mill['b4'] != "W"):
                                             #if(abs(ord(des[0]) - ord(pos[0])) == 2):
                                             if(abs(ord(des[0]) - ord(pos[0])) <= 2):
                                                 # legal to fly
                                                 return True
+                                        if(pos == 'b4')
+                                            return True
                                     else: # between e4 - g4
-                                        if(self.ui.values_for_mill[f4] != "B" and self.ui.values_for_mill[f4] != "W"):
+                                        if(self.ui.values_for_mill['f4'] != "B" and self.ui.values_for_mill['f4'] != "W"):
                                             #if(abs(ord(des[0]) - ord(pos[0])) == 2):
                                             if(abs(ord(des[0]) - ord(pos[0])) <= 2):
                                                 # legal to fly
                                                 return True
+                                        if(pos == 'f4')
+                                            return True
                         else:
                             print("The destination you choose is illegal.")
                             return False
@@ -509,15 +521,19 @@ class game_manager:
                                             return True
                                 else: # if on 'd' column
                                     if(des[1] <= 3): # between d1 - d3
-                                        if(self.ui.values_for_mill[d2] != "B" and self.ui.values_for_mill[d2] != "W"):
+                                        if(self.ui.values_for_mill['d2'] != "B" and self.ui.values_for_mill['d2'] != "W"):
                                             if(abs(int(des[1]) - int(pos[1])) <= 2):
                                                 # legal to fly
                                                 return True
+                                        if(pos == 'd2')
+                                            return True
                                     else: # between d5 - d7
-                                        if(self.ui.values_for_mill[d6] != "B" and self.ui.values_for_mill[d6] != "W"):
+                                        if(self.ui.values_for_mill['d6'] != "B" and self.ui.values_for_mill['d6'] != "W"):
                                             if(abs(int(des[1]) - int(pos[1])) <= 2):
                                                 # legal to fly
                                                 return True
+                                        if(pos == 'd6')
+                                            return True
                             else: # row fly
                                 if(des[1] != '4'): # if not on '4' row
                                     if(self.ui.values_for_mill['d' + des[1]] != "B" and self.ui.values_for_mill['d' + des[1]] != "W"):
@@ -526,15 +542,19 @@ class game_manager:
                                             return True
                                 else: # if on '4' row
                                     if(ord(des[0]) <= 99): # between a4 - c4
-                                        if(self.ui.values_for_mill[b4] != "B" and self.ui.values_for_mill[b4] != "W"):
+                                        if(self.ui.values_for_mill['b4'] != "B" and self.ui.values_for_mill['b4'] != "W"):
                                             if(abs(ord(des[0]) - ord(pos[0])) <= 2):
                                                 # legal to fly
                                                 return True
+                                        if(pos == 'b4')
+                                            return True
                                     else: # between e4 - g4
-                                        if(self.ui.values_for_mill[f4] != "B" and self.ui.values_for_mill[f4] != "W"):
+                                        if(self.ui.values_for_mill['f4'] != "B" and self.ui.values_for_mill['f4'] != "W"):
                                             if(abs(ord(des[0]) - ord(pos[0])) <= 2):
                                                 # legal to fly
                                                 return True
+                                        if(pos == 'f4')
+                                            return True
                         else:
                             print("The destination you choose is illegal.")
                             return False
