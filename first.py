@@ -456,6 +456,8 @@ class game_manager:
                                         if(abs(int(des[1]) - int(pos[1])) >= 1):
                                             # legal to fly
                                             return True
+                                    if(pos == des[0] + str(4)):
+                                        return True
                                 else: # if on 'd' column
                                     if(des[1] <= 3): # between d1 - d3
                                         if(self.ui.values_for_mill['d2'] != "B" and self.ui.values_for_mill['d2'] != "W"):
@@ -463,7 +465,7 @@ class game_manager:
                                             if(abs(int(des[1]) - int(pos[1])) <= 2):
                                                 # legal to fly
                                                 return True
-                                        if(pos == 'd2')
+                                        if(pos == 'd2'):
                                             return True
                                     else: # between d5 - d7
                                         if(self.ui.values_for_mill['d6'] != "B" and self.ui.values_for_mill['d6'] != "W"):
@@ -471,7 +473,7 @@ class game_manager:
                                             if(abs(int(des[1]) - int(pos[1])) <= 2):
                                                 # legal to fly
                                                 return True
-                                        if(pos == 'd6')
+                                        if(pos == 'd6'):
                                             return True
                             else: # row fly
                                 if(des[1] != '4'): # if not on '4' row
@@ -480,6 +482,8 @@ class game_manager:
                                         if(abs(ord(des[0]) - ord(pos[0])) >= 1):
                                             # legal to fly
                                             return True
+                                    if('d' + des[1]):
+                                        return True
                                 else: # if on '4' row
                                     if(ord(des[0]) <= 99): # between a4 - c4
                                         if(self.ui.values_for_mill['b4'] != "B" and self.ui.values_for_mill['b4'] != "W"):
@@ -487,7 +491,7 @@ class game_manager:
                                             if(abs(ord(des[0]) - ord(pos[0])) <= 2):
                                                 # legal to fly
                                                 return True
-                                        if(pos == 'b4')
+                                        if(pos == 'b4'):
                                             return True
                                     else: # between e4 - g4
                                         if(self.ui.values_for_mill['f4'] != "B" and self.ui.values_for_mill['f4'] != "W"):
@@ -495,7 +499,7 @@ class game_manager:
                                             if(abs(ord(des[0]) - ord(pos[0])) <= 2):
                                                 # legal to fly
                                                 return True
-                                        if(pos == 'f4')
+                                        if(pos == 'f4'):
                                             return True
                         else:
                             print("The destination you choose is illegal.")
@@ -519,20 +523,22 @@ class game_manager:
                                         if(abs(int(des[1]) - int(pos[1])) >= 1):
                                             # legal to fly
                                             return True
+                                    if(pos == des[0] + str(4)):
+                                        return True
                                 else: # if on 'd' column
                                     if(des[1] <= 3): # between d1 - d3
                                         if(self.ui.values_for_mill['d2'] != "B" and self.ui.values_for_mill['d2'] != "W"):
                                             if(abs(int(des[1]) - int(pos[1])) <= 2):
                                                 # legal to fly
                                                 return True
-                                        if(pos == 'd2')
+                                        if(pos == 'd2'):
                                             return True
                                     else: # between d5 - d7
                                         if(self.ui.values_for_mill['d6'] != "B" and self.ui.values_for_mill['d6'] != "W"):
                                             if(abs(int(des[1]) - int(pos[1])) <= 2):
                                                 # legal to fly
                                                 return True
-                                        if(pos == 'd6')
+                                        if(pos == 'd6'):
                                             return True
                             else: # row fly
                                 if(des[1] != '4'): # if not on '4' row
@@ -540,20 +546,22 @@ class game_manager:
                                         if(abs(ord(des[0]) - ord(pos[0])) >= 1):
                                             # legal to fly
                                             return True
+                                    if(pos == 'd' + des[1]):
+                                        return True
                                 else: # if on '4' row
                                     if(ord(des[0]) <= 99): # between a4 - c4
                                         if(self.ui.values_for_mill['b4'] != "B" and self.ui.values_for_mill['b4'] != "W"):
                                             if(abs(ord(des[0]) - ord(pos[0])) <= 2):
                                                 # legal to fly
                                                 return True
-                                        if(pos == 'b4')
+                                        if(pos == 'b4'):
                                             return True
                                     else: # between e4 - g4
                                         if(self.ui.values_for_mill['f4'] != "B" and self.ui.values_for_mill['f4'] != "W"):
                                             if(abs(ord(des[0]) - ord(pos[0])) <= 2):
                                                 # legal to fly
                                                 return True
-                                        if(pos == 'f4')
+                                        if(pos == 'f4'):
                                             return True
                         else:
                             print("The destination you choose is illegal.")
