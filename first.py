@@ -422,7 +422,7 @@ class game_manager:
                                         print("There is a stone between you and destination. Try again!\n")
                                         self.fly()
                                 else: # if on 'd' column
-                                    if(des[1] <= 3): # between d1 - d3
+                                    if(int(des[1]) <= 3): # between d1 - d3
                                         if(self.ui.values_for_mill['d2'] != "B" and self.ui.values_for_mill['d2'] != "W"):
                                             #if(abs(int(des[1]) - int(pos[1])) == 2):
                                             if(abs(int(des[1]) - int(pos[1])) <= 2):
@@ -507,7 +507,7 @@ class game_manager:
                                         print("There is a stone between you and destination. Try again!")
                                         self.fly()
                                 else: # if on 'd' column
-                                    if(des[1] <= 3): # between d1 - d3
+                                    if(int(des[1]) <= 3): # between d1 - d3
                                         if(self.ui.values_for_mill['d2'] != "B" and self.ui.values_for_mill['d2'] != "W"):
                                             if(abs(int(des[1]) - int(pos[1])) <= 2):
                                                 # legal to fly
