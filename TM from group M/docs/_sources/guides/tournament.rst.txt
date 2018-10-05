@@ -1,0 +1,49 @@
+Tournament Manager
+==================
+
+.. highlight:: python
+
+How it works
+------------
+
+The tournament manager is used like this.
+
+.. code-block:: python
+
+    # Create a new tournament manager
+    tm = TournamentManager(create_game, run_game)
+
+    # Show the main menu
+    tm.start()
+
+The TM shows the main menu where the user can choose which tournament type to play and how many players to include.
+Once selected, the tournament starts and the games will be played.
+
+Integration
+-----------
+
+To integrate the tournament manager with a game platform the following functions have to be passed to the ``TournamentManager`` constructor (see above).
+
+.. code-block:: python
+
+    def create_game(player1, player2):
+        """
+        Create a new game (using the game platform) and return it for later use.
+
+        :param player1: First player (black)
+        :param player2: Second player (white)
+        :return: The created game object
+        """
+        pass
+
+
+    def run_game(game, match):
+        """
+        Play the game and update the match result with ``match.finished(...)``.
+
+        :param game: Game object previously created in create_game
+        :param match: Current match object
+        """
+        pass
+
+These functions are already implemented if you use Group M's game platform.

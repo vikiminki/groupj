@@ -1,0 +1,11 @@
+User Guides
+===========
+
+.. toctree::
+
+    tournament.rst
+
+
+.. toctree::
+
+    game_platform.rst

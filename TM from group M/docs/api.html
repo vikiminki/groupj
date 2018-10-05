@@ -1,0 +1,479 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>API Reference &mdash; sepm 1.0.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Tournament Manager" href="guides/tournament.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> sepm
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="readme.html">Nine Men’s Morris</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="readme.html#getting-started">Getting Started</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="readme.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="readme.html#installing">Installing</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="readme.html#tests">Tests</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="readme.html#run-unit-tests">Run unit tests</a></li>
+<li class="toctree-l3"><a class="reference internal" href="readme.html#run-coding-style-tests">Run coding style tests</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="readme.html#documentation">Documentation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="readme.html#component-specific-documentation">Component-specific documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="readme.html#authors">Authors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="readme.html#license">License</a></li>
+<li class="toctree-l2"><a class="reference internal" href="readme.html#acknowledgments">Acknowledgments</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="guides/index.html">User Guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="guides/tournament.html">Tournament Manager</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="guides/tournament.html#how-it-works">How it works</a></li>
+<li class="toctree-l3"><a class="reference internal" href="guides/tournament.html#integration">Integration</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">API Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">sepm</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>API Reference</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/api.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="api-reference">
+<h1>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-sepm.tournament">
+<span id="tournament-manager"></span><h2>Tournament Manager<a class="headerlink" href="#module-sepm.tournament" title="Permalink to this headline">¶</a></h2>
+<p>Tournament base module.</p>
+<dl class="class">
+<dt id="sepm.tournament.Tournament">
+<em class="property">class </em><code class="descclassname">sepm.tournament.</code><code class="descname">Tournament</code><span class="sig-paren">(</span><em>create_game</em>, <em>play_game</em><span class="sig-paren">)</span><a class="headerlink" href="#sepm.tournament.Tournament" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tournament base class.</p>
+<dl class="method">
+<dt id="sepm.tournament.Tournament.add_player">
+<code class="descname">add_player</code><span class="sig-paren">(</span><em>name</em>, <em>ai_difficulty=None</em><span class="sig-paren">)</span><a class="headerlink" href="#sepm.tournament.Tournament.add_player" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a player to the tournament.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>name</strong> – Name of the player</li>
+<li><strong>ai_difficulty</strong> – AI difficulty as a string (easy/medium/hard)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sepm.tournament.Tournament.build_schedule">
+<code class="descname">build_schedule</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sepm.tournament.Tournament.build_schedule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Build the tournament schedule.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sepm.tournament.Tournament.match_finished">
+<code class="descname">match_finished</code><span class="sig-paren">(</span><em>match</em><span class="sig-paren">)</span><a class="headerlink" href="#sepm.tournament.Tournament.match_finished" title="Permalink to this definition">¶</a></dt>
+<dd><p>Called when a match is finished.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sepm.tournament.Tournament.matches">
+<code class="descname">matches</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sepm.tournament.Tournament.matches" title="Permalink to this definition">¶</a></dt>
+<dd><p>Play and iterate over all matches.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sepm.tournament.Tournament.next_match">
+<code class="descname">next_match</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sepm.tournament.Tournament.next_match" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the next match.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sepm.tournament.Tournament.print_schedule">
+<code class="descname">print_schedule</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sepm.tournament.Tournament.print_schedule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the tournament schedule.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sepm.tournament.Tournament.print_standings">
+<code class="descname">print_standings</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sepm.tournament.Tournament.print_standings" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the tournament standings.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sepm.tournament.Tournament.start">
+<code class="descname">start</code><span class="sig-paren">(</span><em>randomize_players=False</em><span class="sig-paren">)</span><a class="headerlink" href="#sepm.tournament.Tournament.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start the tournament.</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-sepm.tournament.match"></span><p>Tournament match module.</p>
+<dl class="class">
+<dt id="sepm.tournament.match.Match">
+<em class="property">class </em><code class="descclassname">sepm.tournament.match.</code><code class="descname">Match</code><span class="sig-paren">(</span><em>id</em>, <em>tournament</em>, <em>round</em><span class="sig-paren">)</span><a class="headerlink" href="#sepm.tournament.match.Match" title="Permalink to this definition">¶</a></dt>
+<dd><p>Match class.</p>
+<dl class="method">
+<dt id="sepm.tournament.match.Match.finished">
+<code class="descname">finished</code><span class="sig-paren">(</span><em>winner</em>, <em>winner_stones=0</em>, <em>loser_stones=0</em>, <em>stats={}</em><span class="sig-paren">)</span><a class="headerlink" href="#sepm.tournament.match.Match.finished" title="Permalink to this definition">¶</a></dt>
+<dd><p>Match is over, save the results.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sepm.tournament.match.Match.is_full">
+<code class="descname">is_full</code><a class="headerlink" href="#sepm.tournament.match.Match.is_full" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if the match is full (two players).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sepm.tournament.match.Match.is_over">
+<code class="descname">is_over</code><a class="headerlink" href="#sepm.tournament.match.Match.is_over" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if the match is over.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sepm.tournament.match.Match.parent">
+<code class="descname">parent</code><a class="headerlink" href="#sepm.tournament.match.Match.parent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the parent match.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sepm.tournament.match.Match.start">
+<code class="descname">start</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sepm.tournament.match.Match.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start a match.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="sepm.tournament.match.MatchResult">
+<em class="property">class </em><code class="descclassname">sepm.tournament.match.</code><code class="descname">MatchResult</code><span class="sig-paren">(</span><em>match</em>, <em>winner</em>, <em>winner_stones</em>, <em>loser_stones</em>, <em>stats</em><span class="sig-paren">)</span><a class="headerlink" href="#sepm.tournament.match.MatchResult" title="Permalink to this definition">¶</a></dt>
+<dd><p>Match result class.</p>
+<dl class="attribute">
+<dt id="sepm.tournament.match.MatchResult.is_draw">
+<code class="descname">is_draw</code><a class="headerlink" href="#sepm.tournament.match.MatchResult.is_draw" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if the match was a draw.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="sepm.tournament.match.player_name">
+<code class="descclassname">sepm.tournament.match.</code><code class="descname">player_name</code><span class="sig-paren">(</span><em>player</em><span class="sig-paren">)</span><a class="headerlink" href="#sepm.tournament.match.player_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the player name.</p>
+</dd></dl>
+
+<span class="target" id="module-sepm.tournament.round_robin"></span><p>Round robin tournament module.</p>
+<dl class="class">
+<dt id="sepm.tournament.round_robin.RoundRobinTournament">
+<em class="property">class </em><code class="descclassname">sepm.tournament.round_robin.</code><code class="descname">RoundRobinTournament</code><span class="sig-paren">(</span><em>create_game</em>, <em>play_game</em><span class="sig-paren">)</span><a class="headerlink" href="#sepm.tournament.round_robin.RoundRobinTournament" title="Permalink to this definition">¶</a></dt>
+<dd><p>Round robin tournament class.</p>
+<dl class="method">
+<dt id="sepm.tournament.round_robin.RoundRobinTournament.add_points">
+<code class="descname">add_points</code><span class="sig-paren">(</span><em>player</em>, <em>points</em><span class="sig-paren">)</span><a class="headerlink" href="#sepm.tournament.round_robin.RoundRobinTournament.add_points" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add points to player.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sepm.tournament.round_robin.RoundRobinTournament.build_schedule">
+<code class="descname">build_schedule</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sepm.tournament.round_robin.RoundRobinTournament.build_schedule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Build the tournament schedule.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sepm.tournament.round_robin.RoundRobinTournament.match_finished">
+<code class="descname">match_finished</code><span class="sig-paren">(</span><em>match</em><span class="sig-paren">)</span><a class="headerlink" href="#sepm.tournament.round_robin.RoundRobinTournament.match_finished" title="Permalink to this definition">¶</a></dt>
+<dd><p>Called when a match is finished.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sepm.tournament.round_robin.RoundRobinTournament.next_match">
+<code class="descname">next_match</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sepm.tournament.round_robin.RoundRobinTournament.next_match" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the next match.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sepm.tournament.round_robin.RoundRobinTournament.print_standings">
+<code class="descname">print_standings</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sepm.tournament.round_robin.RoundRobinTournament.print_standings" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the current standings.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="sepm.tournament.round_robin.round_robin_scheduler">
+<code class="descclassname">sepm.tournament.round_robin.</code><code class="descname">round_robin_scheduler</code><span class="sig-paren">(</span><em>values</em><span class="sig-paren">)</span><a class="headerlink" href="#sepm.tournament.round_robin.round_robin_scheduler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generator to create matchups between the given values.</p>
+</dd></dl>
+
+<span class="target" id="module-sepm.tournament.single_elim"></span><p>Single elimination tournament module.</p>
+<dl class="class">
+<dt id="sepm.tournament.single_elim.SingleEliminiationTournament">
+<em class="property">class </em><code class="descclassname">sepm.tournament.single_elim.</code><code class="descname">SingleEliminiationTournament</code><span class="sig-paren">(</span><em>create_game</em>, <em>play_game</em><span class="sig-paren">)</span><a class="headerlink" href="#sepm.tournament.single_elim.SingleEliminiationTournament" title="Permalink to this definition">¶</a></dt>
+<dd><p>Single eliminataion tournament class.</p>
+<dl class="method">
+<dt id="sepm.tournament.single_elim.SingleEliminiationTournament.build_schedule">
+<code class="descname">build_schedule</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sepm.tournament.single_elim.SingleEliminiationTournament.build_schedule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Build the tournament schedule.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sepm.tournament.single_elim.SingleEliminiationTournament.next_match">
+<code class="descname">next_match</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sepm.tournament.single_elim.SingleEliminiationTournament.next_match" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the next match.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sepm.tournament.single_elim.SingleEliminiationTournament.print_standings">
+<code class="descname">print_standings</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sepm.tournament.single_elim.SingleEliminiationTournament.print_standings" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the tournament bracket.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-sepm">
+<span id="miscellaneous"></span><h2>Miscellaneous<a class="headerlink" href="#module-sepm" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="sepm.GamePiece">
+<em class="property">class </em><code class="descclassname">sepm.</code><code class="descname">GamePiece</code><span class="sig-paren">(</span><em>color</em><span class="sig-paren">)</span><a class="headerlink" href="#sepm.GamePiece" title="Permalink to this definition">¶</a></dt>
+<dd><p>Game piece class.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="sepm.Phase">
+<em class="property">class </em><code class="descclassname">sepm.</code><code class="descname">Phase</code><a class="headerlink" href="#sepm.Phase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Player phases.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="sepm.PieceColor">
+<em class="property">class </em><code class="descclassname">sepm.</code><code class="descname">PieceColor</code><a class="headerlink" href="#sepm.PieceColor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Piece colors.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="sepm.check_valid_pos">
+<code class="descclassname">sepm.</code><code class="descname">check_valid_pos</code><span class="sig-paren">(</span><em>position</em><span class="sig-paren">)</span><a class="headerlink" href="#sepm.check_valid_pos" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if a position is a valid board position.</p>
+</dd></dl>
+
+<span class="target" id="module-sepm.exceptions"></span><p>Game platform-related exceptions module.</p>
+<dl class="exception">
+<dt id="sepm.exceptions.FoundMillError">
+<em class="property">exception </em><code class="descclassname">sepm.exceptions.</code><code class="descname">FoundMillError</code><a class="headerlink" href="#sepm.exceptions.FoundMillError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Exception raised when the mill is found.</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="sepm.exceptions.GameOver">
+<em class="property">exception </em><code class="descclassname">sepm.exceptions.</code><code class="descname">GameOver</code><span class="sig-paren">(</span><em>winner</em><span class="sig-paren">)</span><a class="headerlink" href="#sepm.exceptions.GameOver" title="Permalink to this definition">¶</a></dt>
+<dd><p>Exception raised when the game is over.</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="guides/tournament.html" class="btn btn-neutral" title="Tournament Manager" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Group M.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0.0',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

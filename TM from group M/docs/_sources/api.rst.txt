@@ -1,0 +1,14 @@
+API Reference
+*************
+
+.. ifconfig:: include_tm
+
+    .. include:: includes/api_tournament.rst
+
+.. ifconfig:: include_gp
+
+    .. include:: includes/api_game_platform.rst
+
+.. ifconfig:: True
+
+    .. include:: includes/api_general.rst

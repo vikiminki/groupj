@@ -1,0 +1,28 @@
+.. sepm documentation master file, created by
+   sphinx-quickstart on Sun Sep 30 22:16:40 2018.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+Nine Men's Morris API Documentation
+###################################
+
+This project is a Nine Men's Morris implementation in Python for the class
+*Software Engineering and Project Management* at Uppsala University.
+
+.. ifconfig:: not include_tm
+
+    .. warning::
+
+        The Tournament Manager component is not included in this version.
+
+.. ifconfig:: not include_gp
+
+    .. warning::
+
+        The Game Platform component is not included in this version.
+
+.. toctree::
+
+    readme.rst
+    guides/index.rst
+    api.rst
