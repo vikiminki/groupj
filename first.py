@@ -11,6 +11,7 @@ class game_manager:
     black_stones = 0 #shang
     white_stones = 0 #shang
     ui = userinterface()
+    winner = None
 
     def init_game(self):
         print("So you want to play huh?")
@@ -78,7 +79,7 @@ class game_manager:
         else:
             print("Wrong input, try again.")
             self.init_game()
-    
+
     def game_loop(self):        
         while(self.turn < 19):
             print("Game in Phase 1 :")
@@ -95,17 +96,16 @@ class game_manager:
                 self.move()
                 self.turn += 1
             if(self.end_of_game()):
-                print("End of game yo!")
                 break
         if(self.player_one["stones"] < 3):
             print(self.player_one["name"] + " have only 2 stones! " + self.player_two["name"] + " WIN !!")
             print("End of game yo!")
-            exit()
+            self.winner = 2
 
         elif(self.player_two["stones"] < 3):
             print(self.player_two["name"] + " have only 2 stones! " + self.player_one["name"] + " WIN !!")
             print("End of game yo!")
-            exit()
+            self.winner = 1
 
     def end_of_game(self):
         black_way_to_go = 0
@@ -135,9 +135,11 @@ class game_manager:
 
         if(black_way_to_go == 0):
             print("BLACK can not move any more! " + self.player_two["name"] + " WIN !!")
+            self.winner = 2
             return True
         elif(white_way_to_go == 0):
             print("WHITE can not move any more! " + self.player_one["name"] + " WIN !!")
+            self.winner = 1
             return True
         else:
             return False
@@ -642,5 +644,6 @@ class game_manager:
             print("Its " + self.player_one["name"] +"'s turn! Please pick a black stone.\n")
             stone = input("Please select a stone")
 
-obj = game_manager()
-obj.init_game()
+#obj = game_manager()
+#obj.init_game()
+#print("winner: %d" %obj.winner)
