@@ -92,11 +92,7 @@ class userinterface:
             
         return fly_mode
                 
-        '''
-            if(char_new[0]==char_old[0] or char_new[1]==char_old[0] or char_new[0]==char_old[1] or char_new[1]==char_old[1]):
-                #this is the condition for fly
-         '''   
-                
+               
     def legal_move_2(self, stone, dest_position): #checks if position is free & next to the stone
         if(not(self.legal_move(dest_position))):
             return(False)
@@ -104,7 +100,6 @@ class userinterface:
         oldpos = list(positions.keys())[list(positions.values()).index(stone)] #current position of stone
         connections = self.connections[oldpos]
 
-        print("connections: " + connections[0] + connections[1])
         if(dest_position in connections):
             return True
         else:

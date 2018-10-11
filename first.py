@@ -14,7 +14,7 @@ class game_manager:
     winner = None
 
     def init_game(self):
-        print("So you want to play huh?")
+        print("Game starting")
         #print("Press 1 or 2 to pick game mode")
         #we should catch exceptions in reasonable way
         choice = input("Play versus player(1) or play versus computer(2) or jumo to phase 2(3) or jump to phase 3(4):")
@@ -143,19 +143,8 @@ class game_manager:
             return True
         else:
             return False
-        '''    
-        keylist = []
-        for x in range(1,9):
-            for (key, value) in self.ui.values.items():
-                if value == ("W" + str(x)):
-                    keylist.append(key) #put every position where player has a stone in list
-        
-        for key in keylist: #for each position, check the positions connections
-            for connect in self.ui.connections[key]: #for each connection
-                if("0 " in self.ui.values[connect]): #check if value == "0 "
-                    return True
-        return False
-        '''
+
+
     def place(self):
         self.ui.print_board()
         print("\n")
@@ -573,69 +562,7 @@ class game_manager:
         #else:
         return False
 
-        #self.turn += 1
-        #self.ui.print_board()
-        '''        
-        if(self.player_one["stones"] < 4): # if black has only 3 stones
-            print("Fly has now been enabled for " +self.player_one["name"] )
-        elif(self.player_two["stones"] < 4): # if white has only 3 stones
-            print("Fly has now been enabled for " +self.player_one["name"])
-        else: # both black and white have more than 3 stones
-            exit()
-
-        result = "x"
-        print("\n") 
-        print("To move type the the stone you wish to move, e.g. B4")
-        
-        if(self.turn % 2 == 1): # black turn
-            print("Its " + self.player_one["name"] +"'s turn! Please pick a black stone.\n")
-            stone = input("Please select a stone : ")
-            
-            while(not(self.ui.black_white(stone) == "b")): # black_white() return "w" or "b" or "0"
-                stone = input("Please select a black stone : ")
-            
-            while(result == "x"):
-                pos = self.ui.values.key(stone) # pos is the position of the stone you choose.
-                des = input("Select where you want to move : ")
-
-            ###################    
-                
-                if(self.ui.detect_fly_attempt(lvl[pos],pos,des)):
-                    while(not(fly_alg(pos, des)) or not(self.ui.legal_move_2(stone,des))):
-                        des = input("please select a valid destination, or type x to change stone")
-                        if(des == "x"):
-                            result = "x"
-                    result = [stone, des]
-                else:
-                    result = self.move_algorithm()
-                
-            # now put stone using the place and remove the old one
-        else: # white turn
-            print("Its " + self.player_one["name"] +"'s turn! Please pick a white stone. \n")
-            stone = input("Please select a stone : ")
-            
-            while(not(self.ui.black_white(stone) == "w")): # black_white() return "w" or "b" or "0"
-                stone = input("Please select a white stone : ")
-                
-            while(result == "x"):
-                pos = self.ui.values.key(stone)
-                des = input("Select where you want to move : ")
-                
-                if(self.ui.detect_fly_attempt(lvl[pos],pos,des)):
-                    while(not(fly_alg(pos, des)) or not(self.ui.legal_move_2(stone,des))):
-                        des = input("please select a valid destination, or type x to change stone")
-                        if(des == "x"):
-                            result = "x"
-                    result = [stone, des]
-                else:
-                    result = self.move_algorithm()
-         
-           
-        mydict = self.ui.values
-        oldpos = list(mydict.keys())[list(mydict.values()).index(result[0])]
-        self.ui.move_stone(result[0], result[1], oldpos)
-        '''        
-        
+       
     def selection_process(self):
         print("Its " + self.player_one["name"] +"'s turn! Please pick a black stone.\n")
         stone = input("Please select a stone")
@@ -644,6 +571,3 @@ class game_manager:
             print("Its " + self.player_one["name"] +"'s turn! Please pick a black stone.\n")
             stone = input("Please select a stone")
 
-#obj = game_manager()
-#obj.init_game()
-#print("winner: %d" %obj.winner)
