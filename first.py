@@ -2,16 +2,15 @@ from userinterface import userinterface
 #from _operator import pos
 
 class game_manager:
-    phase = 1
     player_one = {"name": "", "color": "black", "stones": 0}
     player_two = {"name": "", "color": "white", "stones": 0}
     turn = 1
     mill_number = 0 #shang
     remove_check_mill_number = 0 #shang
     black_stones = 0 #shang
-    white_stones = 0 #shang
-    ui = userinterface()
+    white_stones = 0 #shang    
     winner = None
+    ui = userinterface()
 
     def init_game(self):
         print("Game starting")
@@ -95,8 +94,9 @@ class game_manager:
                 print("Game in Phase 2 :")
                 self.move()
                 self.turn += 1
-            if(self.end_of_game()):
+            if(self.end_of_game()): # To make sure both players can still move their stones.
                 break
+
         if(self.player_one["stones"] < 3):
             print(self.player_one["name"] + " have only 2 stones! " + self.player_two["name"] + " WIN !!")
             print("End of game yo!")
@@ -106,6 +106,19 @@ class game_manager:
             print(self.player_two["name"] + " have only 2 stones! " + self.player_one["name"] + " WIN !!")
             print("End of game yo!")
             self.winner = 1
+
+        self.refresh_value()
+
+    def refresh_value(self):
+        player_one = {"name": "", "color": "black", "stones": 0}
+        player_two = {"name": "", "color": "white", "stones": 0}
+        turn = 1
+        mill_number = 0 #shang
+        remove_check_mill_number = 0 #shang
+        black_stones = 0 #shang
+        white_stones = 0 #shang    
+        winner = None
+        self.ui.refresh_board()
 
     def end_of_game(self):
         black_way_to_go = 0
